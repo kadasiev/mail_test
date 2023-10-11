@@ -53,7 +53,7 @@ public class MailMailboxPage extends BasePage {
         return this;
     }
 
-    public MailMailboxPage waitForTheEmailToArrive() throws InterruptedException {
+    public MailMailboxPage waitUntilEmailIsSent() throws InterruptedException {
         Thread.sleep(30000);
         return this;
     }
