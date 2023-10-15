@@ -5,7 +5,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class MailSignInPage extends BasePage {
-    @FindBy(xpath = "//button[@data-show-counter='84226411']")
+    @FindBy(xpath = "//button[@data-testid='enter-mail-primary']")
     private WebElement openSignInFormButton;
 
     @FindBy(xpath = "//iframe[@class='ag-popup__frame__layout__iframe']")
@@ -29,8 +29,8 @@ public class MailSignInPage extends BasePage {
     @FindBy(xpath = "//div[@data-test-id='password-input-error']")
     private WebElement errorMessageFromWrongPassword;
 
-    public MailSignInPage goTo(String url) {
-        driver.get(url);
+    public MailSignInPage openPage() {
+        driver.get("https://mail.ru/");
         return this;
     }
 
