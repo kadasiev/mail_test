@@ -23,6 +23,8 @@ public class OutlookMailboxPage extends BasePage {
     @FindBy(xpath = "//button[@id='onetrust-accept-btn-handler']")
     private WebElement acceptCookiesButton;
 
+    private final By isAcceptCookiesButtonPresentBy = By.xpath("//button[@id='onetrust-accept-btn-handler']");
+
 
     public boolean isEmailArrived(String sender, String subject) {
         wait.until(ExpectedConditions.visibilityOfAllElements(letters));
@@ -76,10 +78,10 @@ public class OutlookMailboxPage extends BasePage {
     }
 
     private boolean isAcceptCookiesButtonPresent() throws InterruptedException {
-        List<WebElement> elements = driver.findElements(By.xpath("//button[@id='onetrust-accept-btn-handler']"));
+        List<WebElement> elements = driver.findElements(isAcceptCookiesButtonPresentBy);
         for(int i = 0; (i < 30) && (elements.isEmpty()); i++) {
             Thread.sleep(1000);
-            elements = driver.findElements(By.xpath("//button[@id='onetrust-accept-btn-handler']"));
+            elements = driver.findElements(isAcceptCookiesButtonPresentBy);
         }
         return !elements.isEmpty();
     }
