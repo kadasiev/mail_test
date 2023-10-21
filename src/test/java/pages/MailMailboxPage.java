@@ -7,7 +7,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.util.List;
 
 public class MailMailboxPage extends BasePage {
-    @FindBy(xpath = "//img[@class='ph-avatar-img svelte-dfhuqc']")
+    @FindBy(xpath = "//img[@alt='selenium.test124@mail.ru']")
     private WebElement menuButton;
 
     @FindBy(xpath = "//div[@class='ph-text svelte-1popff4']")
@@ -19,7 +19,7 @@ public class MailMailboxPage extends BasePage {
     @FindBy(xpath = "//input[@tabindex='100']")
     private WebElement sendToField;
 
-    @FindBy(xpath = "//input[@tabindex='400']")
+    @FindBy(xpath = "//input[@name='Subject']")
     private WebElement subjectField;
 
     @FindBy(xpath = "//div[@tabindex='505']")

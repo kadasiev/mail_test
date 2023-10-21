@@ -5,16 +5,16 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class OutlookSignInPage extends BasePage{
-    @FindBy(xpath = "//input[@id='i0116']")
+    @FindBy(xpath = "//input[@data-report-event='Signin_Email_Phone_Skype']")
     private WebElement usernameField;
 
-    @FindBy(xpath = "//input[@id='idSIButton9']")
+    @FindBy(xpath = "//input[@data-report-event='Signin_Submit']")
     private WebElement nextButton;
 
-    @FindBy(xpath = "//input[@id='i0118']")
+    @FindBy(xpath = "//input[@name='passwd']")
     private WebElement passwordField;
 
-    @FindBy(xpath = "//input[@id='idSIButton9']")
+    @FindBy(xpath = "//input[@data-report-event='Signin_Submit']")
     private WebElement signInButton;
 
     @FindBy(xpath = "//input[@id='idBtn_Back']")

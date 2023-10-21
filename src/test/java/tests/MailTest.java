@@ -2,65 +2,66 @@ package tests;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
+import pages.MailMailboxPage;
+import pages.MailSignInPage;
+import pages.OutlookMailboxPage;
+import pages.OutlookSignInPage;
 
 public class MailTest extends BaseTest {
-    @Test
-    public void validUsernameAndPasswordTest() {
-        mailSignInPage.openPage()
+    @Test(description = "Validate that sign-in with a real username and password succeeds")
+    public void SignInWithValidUsernameAndPassword() {
+        new MailSignInPage().openPage()
                 .openSignInWindow()
                 .enterUsername("selenium.test124@mail.ru")
                 .enterPassword("q2r5h7k9#");
 
-        Assert.assertEquals(mailMailboxPage.getTitle(), "Почта Mail.ru");
+        MailMailboxPage mailMailboxPage = new MailMailboxPage();
+        SoftAssert softAssert = new SoftAssert();
 
+        softAssert.assertEquals(mailMailboxPage.getTitle(), "Почта Mail.ru",
+                "Sign-in with valid username and password");
         mailMailboxPage.signOut();
+        softAssert.assertAll();
     }
 
-    @Test
-    public void wrongUserNameTest() {
-        mailSignInPage.openPage()
+    @Test(dataProvider = "dataForUsernameField",
+            description = "Validate that the user can't sign in with an unknown and empty username")
+    public void signInWithWrongUsername(String username, String expectedErrorMessage,
+                                      String assertFailMessage) {
+        new MailSignInPage().openPage()
                 .openSignInWindow()
-                .enterUsername("selenium.5748124@mail.ru");
+                .enterUsername(username);
 
-        Assert.assertEquals(mailSignInPage.getErrorMessageFromWrongUsername(),
-                "That account is not registered");
+        Assert.assertEquals(new MailSignInPage().getErrorMessageFromWrongUsername(),
+                expectedErrorMessage, assertFailMessage);
     }
 
-    @Test
-    public void emptyUserNameTest() {
-        mailSignInPage.openPage()
-                .openSignInWindow()
-                .enterUsername("");
-
-        Assert.assertEquals(mailSignInPage.getErrorMessageFromWrongUsername(),
-                "The \"Account name\" field is required");
-    }
-
-    @Test
-    public void wrongPasswordTest() {
-        mailSignInPage.openPage()
+    @Test(description = "Validate that the user can't sign in with wrong password")
+    public void signInWithWrongPassword() {
+        new MailSignInPage().openPage()
                 .openSignInWindow()
                 .enterUsername("selenium.test124@mail.ru")
                 .enterPassword("jyfy");
 
-        Assert.assertEquals(mailSignInPage.getErrorMessageFromWrongPassword(),
-                "Incorrect password. Try again");
+        Assert.assertEquals(new MailSignInPage().getErrorMessageFromWrongPassword(),
+                "Incorrect password. Try again", "Sign-in with wrong password");
     }
 
-    @Test
-    public void emptyPasswordTest() {
-        mailSignInPage.openPage()
+    @Test(description = "Validate that the user can't sign in with empty password")
+    public void signInWithEmptyPassword() {
+        new MailSignInPage().openPage()
                 .openSignInWindow()
                 .enterUsername("selenium.test124@mail.ru")
                 .enterPassword("");
 
-        Assert.assertEquals(mailSignInPage.getErrorMessageFromEmptyPassword(),
-                "The \"Password\" field is required");
+        Assert.assertEquals(new MailSignInPage().getErrorMessageFromEmptyPassword(),
+                "The \"Password\" field is required", "Sign-in with empty password");
     }
 
-    @Test
-    public void emailIsArrivedTest() throws InterruptedException {
-        mailSignInPage.openPage()
+    @Test(description = "Validate that the sent email arrived at the target mailbox")
+    public void ValidateEmailIsArrived() throws InterruptedException {
+        new MailSignInPage().openPage()
                 .openSignInWindow()
                 .enterUsername("selenium.test124@mail.ru")
                 .enterPassword("q2r5h7k9#")
@@ -69,17 +70,17 @@ public class MailTest extends BaseTest {
                 .waitUntilEmailIsSent()
                 .signOut();
 
-        boolean isArrived = outlookSignInPage.openPage()
+        boolean isArrived = new OutlookSignInPage().openPage()
                 .signIn("selenium.test124@outlook.com", "q2r5h7k9#")
                 .isEmailArrived("David Kadasiev", "test7");
-        outlookMailboxPage.signOut();
+        new OutlookMailboxPage().signOut();
 
-        Assert.assertTrue(isArrived);
+        Assert.assertTrue(isArrived, "Validation that email is arrived");
     }
 
-    @Test
-    public void emailUnreadTest() throws InterruptedException {
-        mailSignInPage.openPage()
+    @Test(description = "Validate that the new email is unread")
+    public void ValidateEmailUnread() throws InterruptedException {
+        new MailSignInPage().openPage()
                 .openSignInWindow()
                 .enterUsername("selenium.test124@mail.ru")
                 .enterPassword("q2r5h7k9#")
@@ -88,17 +89,17 @@ public class MailTest extends BaseTest {
                 .waitUntilEmailIsSent()
                 .signOut();
 
-        boolean isUnread = outlookSignInPage.openPage()
+        boolean isUnread = new OutlookSignInPage().openPage()
                 .signIn("selenium.test124@outlook.com", "q2r5h7k9#")
                 .isEmailUnread("David Kadasiev", "test8");
-        outlookMailboxPage.signOut();
+        new OutlookMailboxPage().signOut();
 
-        Assert.assertTrue(isUnread);
+        Assert.assertTrue(isUnread, "Validation that the new email is unread");
     }
 
-    @Test
-    public void emailContentTest() throws InterruptedException {
-        mailSignInPage.openPage()
+    @Test(description = "Validate that the email content is correct")
+    public void ValidateEmailContent() throws InterruptedException {
+        new MailSignInPage().openPage()
                 .openSignInWindow()
                 .enterUsername("selenium.test124@mail.ru")
                 .enterPassword("q2r5h7k9#")
@@ -107,13 +108,13 @@ public class MailTest extends BaseTest {
                 .waitUntilEmailIsSent()
                 .signOut();
 
-        String emailContent = outlookSignInPage.openPage()
+        String emailContent = new OutlookSignInPage().openPage()
                 .signIn("selenium.test124@outlook.com", "q2r5h7k9#")
                 .getEmailContent("David Kadasiev", "test9");
-        outlookMailboxPage.signOut();
+        new OutlookMailboxPage().signOut();
 
         Assert.assertEquals(emailContent,
-                " Hi\n\nHow are you?\n\nBest Regards\nDavid");
+                "Hi\n\nHow are you?\n\nBest Regards\nDavid", "Validation of the email content");
 
     }
 }

@@ -11,13 +11,13 @@ public class MailSignInPage extends BasePage {
     @FindBy(xpath = "//iframe[@class='ag-popup__frame__layout__iframe']")
     private WebElement signInIframe;
 
-    @FindBy(xpath = "//input[@class='input-0-2-71']")
+    @FindBy(xpath = "//input[@name='username']")
     private WebElement usernameField;
 
-    @FindBy(xpath = "//div/button[@class='base-0-2-79 primary-0-2-93']")
+    @FindBy(xpath = "//div/button[@data-test-id='next-button']")
     private WebElement enterPasswordButton;
 
-    @FindBy(xpath = "//div/input[@class='input-0-2-71 withIcon-0-2-72']")
+    @FindBy(xpath = "//div/input[@name='password']")
     private WebElement passwordField;
 
     @FindBy(xpath = "//button/span[@class='inner-0-2-81 innerTextWrapper-0-2-82']")

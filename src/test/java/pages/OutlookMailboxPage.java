@@ -1,6 +1,6 @@
 package pages;
 
-import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -22,9 +22,6 @@ public class OutlookMailboxPage extends BasePage {
 
     @FindBy(xpath = "//button[@id='onetrust-accept-btn-handler']")
     private WebElement acceptCookiesButton;
-
-    private final By isAcceptCookiesButtonPresentBy = By.xpath("//button[@id='onetrust-accept-btn-handler']");
-
 
     public boolean isEmailArrived(String sender, String subject) {
         wait.until(ExpectedConditions.visibilityOfAllElements(letters));
@@ -60,30 +57,24 @@ public class OutlookMailboxPage extends BasePage {
             if(letter.getAttribute("aria-label").contains(sender + " " + subject)) {
                 letter.click();
                 wait.until(ExpectedConditions.visibilityOf(letterContent));
-                return letterContent.getText();
+                return letterContent.getText().trim();
             }
         }
         return "The letter doesn't exist";
     }
 
-    public void signOut() throws InterruptedException {
+    public void signOut() {
         wait.until(ExpectedConditions.visibilityOf(menuButton));
         menuButton.click();
         wait.until(ExpectedConditions.visibilityOf(signOutButton));
         signOutButton.click();
 
-        if(isAcceptCookiesButtonPresent()) {
+        try {
+            wait.until(ExpectedConditions.visibilityOf(acceptCookiesButton));
             acceptCookiesButton.click();
         }
-    }
-
-    private boolean isAcceptCookiesButtonPresent() throws InterruptedException {
-        List<WebElement> elements = driver.findElements(isAcceptCookiesButtonPresentBy);
-        for(int i = 0; (i < 30) && (elements.isEmpty()); i++) {
-            Thread.sleep(1000);
-            elements = driver.findElements(isAcceptCookiesButtonPresentBy);
+        catch(TimeoutException ignored) {
         }
-        return !elements.isEmpty();
     }
 }
 
