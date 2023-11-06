@@ -16,4 +16,10 @@ public class BaseTest {
                               {"", "The \"Account name\" field is required", "Sign-in with empty username"}};
     }
 
+    @DataProvider(name = "dataForPasswordField")
+    public Object[][] dataForPasswordField() {
+        return new Object[][]{{"selenium.test124@mail.ru", "jyfy", "Incorrect password. Try again", "Sign-in with wrong password"},
+                              {"selenium.test124@mail.ru", "", "The \"Password\" field is required", "Sign-in with empty password"}};
+    }
+
 }

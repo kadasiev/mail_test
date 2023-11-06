@@ -4,7 +4,9 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.List;
 
 public class OutlookMailboxPage extends BasePage {
@@ -70,10 +72,10 @@ public class OutlookMailboxPage extends BasePage {
         signOutButton.click();
 
         try {
-            wait.until(ExpectedConditions.visibilityOf(acceptCookiesButton));
+            WebDriverWait waitForCookies = new WebDriverWait(driver, Duration.ofSeconds(30));
+            waitForCookies.until(ExpectedConditions.visibilityOf(acceptCookiesButton));
             acceptCookiesButton.click();
-        }
-        catch(TimeoutException ignored) {
+        } catch(TimeoutException ignored) {
         }
     }
 }

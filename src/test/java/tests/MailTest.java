@@ -7,10 +7,11 @@ import pages.MailMailboxPage;
 import pages.MailSignInPage;
 import pages.OutlookMailboxPage;
 import pages.OutlookSignInPage;
+import util.EmailManager;
 
 public class MailTest extends BaseTest {
     @Test(description = "Validate that sign-in with a real username and password succeeds")
-    public void SignInWithValidUsernameAndPassword() {
+    public void signInWithValidUsernameAndPassword() {
         new MailSignInPage().openPage()
                 .openSignInWindow()
                 .enterUsername("selenium.test124@mail.ru")
@@ -37,38 +38,23 @@ public class MailTest extends BaseTest {
                 expectedErrorMessage, assertFailMessage);
     }
 
-    @Test(description = "Validate that the user can't sign in with wrong password")
-    public void signInWithWrongPassword() {
+    @Test(dataProvider = "dataForPasswordField",
+            description = "Validate that the user can't sign in with wrong or empty password")
+    public void signInWithWrongPassword(String username, String password,
+                                        String expectedErrorMessage, String assertFailMessage) {
         new MailSignInPage().openPage()
                 .openSignInWindow()
-                .enterUsername("selenium.test124@mail.ru")
-                .enterPassword("jyfy");
+                .enterUsername(username)
+                .enterPassword(password);
 
         Assert.assertEquals(new MailSignInPage().getErrorMessageFromWrongPassword(),
-                "Incorrect password. Try again", "Sign-in with wrong password");
-    }
-
-    @Test(description = "Validate that the user can't sign in with empty password")
-    public void signInWithEmptyPassword() {
-        new MailSignInPage().openPage()
-                .openSignInWindow()
-                .enterUsername("selenium.test124@mail.ru")
-                .enterPassword("");
-
-        Assert.assertEquals(new MailSignInPage().getErrorMessageFromEmptyPassword(),
-                "The \"Password\" field is required", "Sign-in with empty password");
+                expectedErrorMessage, assertFailMessage);
     }
 
     @Test(description = "Validate that the sent email arrived at the target mailbox")
-    public void ValidateEmailIsArrived() throws InterruptedException {
-        new MailSignInPage().openPage()
-                .openSignInWindow()
-                .enterUsername("selenium.test124@mail.ru")
-                .enterPassword("q2r5h7k9#")
-                .sendLetter("selenium.test124@outlook.com", "test7"
-                        , "Hi!\n\nHow are you?\n\nBest Regards\nDavid")
-                .waitUntilEmailIsSent()
-                .signOut();
+    public void validateEmailIsArrived() throws InterruptedException {
+        EmailManager.sendLetter("selenium.test124@outlook.com", "test7",
+                "Hi!\n\nHow are you?\n\nBest Regards\nDavid");
 
         boolean isArrived = new OutlookSignInPage().openPage()
                 .signIn("selenium.test124@outlook.com", "q2r5h7k9#")
@@ -79,15 +65,9 @@ public class MailTest extends BaseTest {
     }
 
     @Test(description = "Validate that the new email is unread")
-    public void ValidateEmailUnread() throws InterruptedException {
-        new MailSignInPage().openPage()
-                .openSignInWindow()
-                .enterUsername("selenium.test124@mail.ru")
-                .enterPassword("q2r5h7k9#")
-                .sendLetter("selenium.test124@outlook.com", "test8"
-                        , "Hi\n\nHow are you?\n\nBest Regards\nDavid")
-                .waitUntilEmailIsSent()
-                .signOut();
+    public void validateEmailUnread() throws InterruptedException {
+        EmailManager.sendLetter("selenium.test124@outlook.com", "test8",
+                "Hi\n\nHow are you?\n\nBest Regards\nDavid");
 
         boolean isUnread = new OutlookSignInPage().openPage()
                 .signIn("selenium.test124@outlook.com", "q2r5h7k9#")
@@ -98,15 +78,9 @@ public class MailTest extends BaseTest {
     }
 
     @Test(description = "Validate that the email content is correct")
-    public void ValidateEmailContent() throws InterruptedException {
-        new MailSignInPage().openPage()
-                .openSignInWindow()
-                .enterUsername("selenium.test124@mail.ru")
-                .enterPassword("q2r5h7k9#")
-                .sendLetter("selenium.test124@outlook.com", "test9"
-                        , "Hi\n\nHow are you?\n\nBest Regards\nDavid")
-                .waitUntilEmailIsSent()
-                .signOut();
+    public void validateEmailContent() throws InterruptedException {
+        EmailManager.sendLetter("selenium.test124@outlook.com", "test9",
+                "Hi\n\nHow are you?\n\nBest Regards\nDavid");
 
         String emailContent = new OutlookSignInPage().openPage()
                 .signIn("selenium.test124@outlook.com", "q2r5h7k9#")

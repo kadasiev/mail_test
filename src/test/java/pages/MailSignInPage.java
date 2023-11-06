@@ -1,8 +1,11 @@
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import java.util.List;
 
 public class MailSignInPage extends BasePage {
     @FindBy(xpath = "//button[@data-testid='enter-mail-primary']")
@@ -67,16 +70,22 @@ public class MailSignInPage extends BasePage {
     }
 
     public String getErrorMessageFromWrongPassword() {
-        wait.until(ExpectedConditions.visibilityOf(errorMessageFromWrongPassword));
-        return errorMessageFromWrongPassword.getText();
-    }
-
-    public String getErrorMessageFromEmptyPassword() {
-        driver.switchTo().frame(signInIframe);
+        if(isIframeExist()) {
+            driver.switchTo().frame(signInIframe);
+        }
         wait.until(ExpectedConditions.visibilityOf(errorMessageFromWrongPassword));
         String errorMessage = errorMessageFromWrongPassword.getText();
-        driver.switchTo().defaultContent();
+
+        if(isIframeExist()) {
+            driver.switchTo().defaultContent();
+        }
         return errorMessage;
+    }
+
+    public boolean isIframeExist() {
+        List<WebElement> dynamicElement = driver
+                .findElements(By.xpath("//iframe[@class='ag-popup__frame__layout__iframe']"));
+        return !dynamicElement.isEmpty();
     }
 }
 

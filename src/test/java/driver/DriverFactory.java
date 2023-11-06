@@ -6,12 +6,12 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 public class DriverFactory {
     private final static WebDriver driver;
 
-    static{
+    static {
         driver = new FirefoxDriver();
         driver.manage().window().maximize();
     }
 
-    public static WebDriver getDriver(){
+    public static WebDriver getDriver() {
         return driver;
     }
 }
