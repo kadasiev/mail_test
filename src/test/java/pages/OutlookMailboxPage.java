@@ -5,7 +5,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.time.Duration;
 import java.util.List;
 
@@ -34,8 +33,8 @@ public class OutlookMailboxPage extends BasePage {
                 isArrived = true;
                 break;
             }
-        }
-        return isArrived;
+       }
+       return isArrived;
     }
 
     public boolean isEmailUnread(String sender, String subject) {

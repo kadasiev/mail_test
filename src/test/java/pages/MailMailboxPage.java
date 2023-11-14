@@ -1,6 +1,5 @@
 package pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -36,7 +35,7 @@ public class MailMailboxPage extends BasePage {
     public void signOut() {
         wait.until(ExpectedConditions.visibilityOf(menuButton));
         menuButton.click();
-        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[@class='ph-text svelte-1popff4']")));
+        wait.until(ExpectedConditions.visibilityOfAllElements(menuItems));
         menuItems.get(3).click();
     }
 

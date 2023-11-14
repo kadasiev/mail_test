@@ -1,6 +1,5 @@
 package pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -31,6 +30,9 @@ public class MailSignInPage extends BasePage {
 
     @FindBy(xpath = "//div[@data-test-id='password-input-error']")
     private WebElement errorMessageFromWrongPassword;
+
+    @FindBy(xpath = "//iframe[@class='ag-popup__frame__layout__iframe']")
+    private List<WebElement> dynamicElement;
 
     public MailSignInPage openPage() {
         driver.get("https://mail.ru/");
@@ -83,8 +85,6 @@ public class MailSignInPage extends BasePage {
     }
 
     public boolean isIframeExist() {
-        List<WebElement> dynamicElement = driver
-                .findElements(By.xpath("//iframe[@class='ag-popup__frame__layout__iframe']"));
         return !dynamicElement.isEmpty();
     }
 }
