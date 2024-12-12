@@ -52,8 +52,12 @@ public class MailMailboxPage extends BasePage {
         return this;
     }
 
-    public MailMailboxPage waitUntilEmailIsSent() throws InterruptedException {
-        Thread.sleep(30000);
+    public MailMailboxPage waitUntilEmailIsSent() {
+        try {
+            Thread.sleep(30000);
+        }
+        catch (InterruptedException ignored) {
+        }
         return this;
     }
 }

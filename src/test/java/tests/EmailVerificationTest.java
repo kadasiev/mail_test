@@ -2,52 +2,50 @@ package tests;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.OutlookMailboxPage;
-import pages.OutlookSignInPage;
-import util.EmailManager;
 
 public class EmailVerificationTest extends BaseTest {
 
-  @Test()
-  public void validateEmailIsArrived() throws InterruptedException {
-    EmailManager.sendLetter("selenium.test124@outlook.com", "test7",
-        "Hi!\n\nHow are you?\n\nBest Regards\nDavid");
+  private static final String SENDER = "David Kadasiev";
+  private static final String RECEIVER = "selenium.test124@outlook.com";
+  private static final String SUBJECT = "Test";
+  private static final String LETTER = "Hi!\n\nHow are you?\n\nBest Regards\nDavid";
 
-    boolean isArrived = new OutlookSignInPage().openPage()
-        .signIn("selenium.test124@outlook.com", "q2r5h7k9#")
-        .isEmailArrived("David Kadasiev", "test7");
-    new OutlookMailboxPage().signOut();
+  @Test()
+  public void validateEmailIsArrived() {
+    loginSteps.mailLogin();
+    emailVerificationSteps.sendLetterFromMail(RECEIVER, SUBJECT + "1", LETTER);
+    logoutSteps.mailLogout();
+    loginSteps.outlookLogin();
+    boolean isArrived =
+        emailVerificationSteps.isEmailArrivedToOutlook(SENDER, SUBJECT + "1");
+    logoutSteps.outlookLogOut();
 
     Assert.assertTrue(isArrived, "Validation that email is arrived");
   }
 
   @Test()
-  public void validateEmailUnread() throws InterruptedException {
-    EmailManager.sendLetter("selenium.test124@outlook.com", "test8",
-        "Hi\n\nHow are you?\n\nBest Regards\nDavid");
-
-    boolean isUnread = new OutlookSignInPage()
-        .openPage()
-        .signIn("selenium.test124@outlook.com", "q2r5h7k9#")
-        .isEmailUnread("David Kadasiev", "test8");
-
-    new OutlookMailboxPage().signOut();
+  public void validateEmailUnread() {
+    loginSteps.mailLogin();
+    emailVerificationSteps.sendLetterFromMail(RECEIVER, SUBJECT + "2", LETTER);
+    logoutSteps.mailLogout();
+    loginSteps.outlookLogin();
+    boolean isUnread =
+        emailVerificationSteps.isEmailUnreadToOutlook(SENDER, SUBJECT + "2");
+    logoutSteps.outlookLogOut();
 
     Assert.assertTrue(isUnread, "Validation that the new email is unread");
   }
 
   @Test()
-  public void validateEmailContent() throws InterruptedException {
-    EmailManager.sendLetter("selenium.test124@outlook.com", "test9",
-        "Hi\n\nHow are you?\n\nBest Regards\nDavid");
+  public void validateEmailContent() {
+    loginSteps.mailLogin();
+    emailVerificationSteps.sendLetterFromMail(RECEIVER, SUBJECT + "3", LETTER);
+    logoutSteps.mailLogout();
+    loginSteps.outlookLogin();
+    String emailContent =
+        emailVerificationSteps.getEmailFromOutlook(SENDER, SUBJECT + "3");
+    logoutSteps.outlookLogOut();
 
-    String emailContent = new OutlookSignInPage().openPage()
-        .signIn("selenium.test124@outlook.com", "q2r5h7k9#")
-        .getEmailContent("David Kadasiev", "test9");
-    new OutlookMailboxPage().signOut();
-
-    Assert.assertEquals(emailContent,
-        "Hi\n\nHow are you?\n\nBest Regards\nDavid", "Validation of the email content");
-
+    Assert.assertEquals(emailContent, LETTER, "Validation of the email content");
   }
 }
