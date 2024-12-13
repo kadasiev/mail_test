@@ -1,62 +1,56 @@
 package tests;
 
-import org.testng.Assert;
+import static org.testng.Assert.assertEquals;
+
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
-import pages.MailMailboxPage;
-import pages.MailSignInPage;
 
 public class LoginTest extends BaseTest {
 
+  private static final String USERNAME = "selenium.test124@mail.ru";
+  private static final String PASSWORD = "q2r5h7k9#";
+  private static final String EXPECTED_TITLE = "Почта Mail.ru";
+
   @DataProvider(name = "dataForUsernameField")
   public Object[][] dataForUsernameField() {
-    return new Object[][]{{"selenium.5748124@mail.ru", "That account is not registered", "Sign-in with non-existent username"},
+    return new Object[][]{{"selenium.5748124@mail.ru", "That account is not registered",
+        "Sign-in with non-existent username"},
         {"", "The \"Account name\" field is required", "Sign-in with empty username"}};
   }
 
   @DataProvider(name = "dataForPasswordField")
   public Object[][] dataForPasswordField() {
-    return new Object[][]{{"selenium.test124@mail.ru", "jyfy", "Incorrect password. Try again", "Sign-in with wrong password"},
-        {"selenium.test124@mail.ru", "", "The \"Password\" field is required", "Sign-in with empty password"}};
+    return new Object[][]{{"selenium.test124@mail.ru", "jyfy", "Incorrect password. Try again",
+        "Sign-in with wrong password"},
+        {"selenium.test124@mail.ru", "", "The \"Password\" field is required",
+            "Sign-in with empty password"}};
   }
 
   @Test()
   public void signInWithValidUsernameAndPassword() {
-    new MailSignInPage().openPage()
-        .openSignInWindow()
-        .enterUsername("selenium.test124@mail.ru")
-        .enterPassword("q2r5h7k9#");
+    loginSteps.mailLogin(USERNAME, PASSWORD);
+    String mailboxTitle = loginSteps.getTitle();
+    logoutSteps.mailLogout();
 
-    MailMailboxPage mailMailboxPage = new MailMailboxPage();
-    SoftAssert softAssert = new SoftAssert();
-
-    softAssert.assertEquals(mailMailboxPage.getTitle(), "Почта Mail.ru",
-        "Sign-in with valid username and password");
-    mailMailboxPage.signOut();
-    softAssert.assertAll();
+    assertEquals(mailboxTitle, EXPECTED_TITLE,
+        "Fail to log-in with valid username and password!");
   }
 
   @Test(dataProvider = "dataForUsernameField")
   public void signInWithWrongUsername(String username, String expectedErrorMessage,
       String assertFailMessage) {
-    new MailSignInPage().openPage()
-        .openSignInWindow()
-        .enterUsername(username);
+    loginSteps.mailEnterUsername(username);
 
-    Assert.assertEquals(new MailSignInPage().getErrorMessageFromWrongUsername(),
+    assertEquals(loginSteps.getErrorMessageFromWrongUsername(),
         expectedErrorMessage, assertFailMessage);
   }
 
   @Test(dataProvider = "dataForPasswordField")
   public void signInWithWrongPassword(String username, String password,
       String expectedErrorMessage, String assertFailMessage) {
-    new MailSignInPage().openPage()
-        .openSignInWindow()
-        .enterUsername(username)
-        .enterPassword(password);
+    loginSteps.mailLogin(username, password);
 
-    Assert.assertEquals(new MailSignInPage().getErrorMessageFromWrongPassword(),
+    assertEquals(loginSteps.getErrorMessageFromWrongPassword(),
         expectedErrorMessage, assertFailMessage);
   }
 }

@@ -11,8 +11,8 @@ public class EmailVerificationSteps extends BaseSteps {
     return outlookMailboxPage.isEmailArrived(sender, subject);
   }
 
-  public boolean isEmailUnreadToOutlook(String sender, String receiver) {
-    return outlookMailboxPage.isEmailUnread(sender, receiver);
+  public boolean isEmailUnreadInOutlook(String sender, String subject) {
+    return outlookMailboxPage.isEmailUnread(sender, subject);
   }
 
   public String getEmailFromOutlook(String sender, String subject) {
