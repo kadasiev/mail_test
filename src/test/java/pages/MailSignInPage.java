@@ -40,47 +40,40 @@ public class MailSignInPage extends BasePage {
     }
 
     public MailSignInPage openSignInWindow() {
-        wait.until(ExpectedConditions.visibilityOf(openSignInFormButton));
+        waitForVisibilityOf(openSignInFormButton);
         openSignInFormButton.click();
         return this;
     }
 
     public MailSignInPage enterUsername(String name) {
-        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(signInIframe));
-        wait.until(ExpectedConditions.visibilityOf(usernameField));
+        switchToFrame(signInIframe);
+        switchToFrame(usernameField);
         usernameField.sendKeys(name);
         enterPasswordButton.click();
         driver.switchTo().defaultContent();
         return this;
     }
 
-    public MailMailboxPage enterPassword(String password) {
-        driver.switchTo().frame(signInIframe);
-        wait.until(ExpectedConditions.visibilityOf(passwordField));
-        passwordField.sendKeys(password);
+    public void enterPassword(String password) {
+        switchToFrame(signInIframe);
+        waitAndSendKeys(passwordField, password);
         signInButton.click();
         driver.switchTo().defaultContent();
-        return new MailMailboxPage();
     }
 
     public String getErrorMessageFromWrongUsername() {
-        driver.switchTo().frame(signInIframe);
-        wait.until(ExpectedConditions.visibilityOf(errorMessageFromWrongUsername));
-        String errorMessage = errorMessageFromWrongUsername.getText();
+        switchToFrame(signInIframe);
+        String errorMessage = waitAndGetText(errorMessageFromWrongUsername);
         driver.switchTo().defaultContent();
         return errorMessage;
     }
 
     public String getErrorMessageFromWrongPassword() {
         if(isIframeExist()) {
-            driver.switchTo().frame(signInIframe);
+            switchToFrame(signInIframe);
         }
-        wait.until(ExpectedConditions.visibilityOf(errorMessageFromWrongPassword));
-        String errorMessage = errorMessageFromWrongPassword.getText();
-
-        if(isIframeExist()) {
-            driver.switchTo().defaultContent();
-        }
+        String errorMessage = waitAndGetText(errorMessageFromWrongPassword);
+        driver.switchTo().defaultContent();
         return errorMessage;
     }
 

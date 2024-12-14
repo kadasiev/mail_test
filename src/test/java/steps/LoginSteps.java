@@ -1,7 +1,5 @@
 package steps;
 
-import pages.MailSignInPage;
-
 public class LoginSteps extends BaseSteps{
 
   public void outlookLogin() {

@@ -33,18 +33,14 @@ public class MailMailboxPage extends BasePage {
     }
 
     public void signOut() {
-        wait.until(ExpectedConditions.visibilityOf(menuButton));
-        menuButton.click();
-        wait.until(ExpectedConditions.visibilityOfAllElements(menuItems));
+        waitAndClick(menuButton);
+        waitForVisibilityOfAll(menuItems);
         menuItems.get(3).click();
     }
 
     public MailMailboxPage sendLetter(String sendTo, String subject, String body) {
-        wait.until(ExpectedConditions.visibilityOf(newLetterButton));
-        newLetterButton.click();
-
-        wait.until(ExpectedConditions.visibilityOf(sendToField));
-        sendToField.sendKeys(sendTo);
+        waitAndClick(newLetterButton);
+        waitAndSendKeys(sendToField, sendTo);
         subjectField.sendKeys(subject);
         bodyField.clear();
         bodyField.sendKeys(body);
@@ -52,12 +48,9 @@ public class MailMailboxPage extends BasePage {
         return this;
     }
 
-    public MailMailboxPage waitUntilEmailIsSent() {
+    public void waitUntilEmailIsSent() {
         try {
             Thread.sleep(30000);
-        }
-        catch (InterruptedException ignored) {
-        }
-        return this;
+        } catch (InterruptedException ignored) {}
     }
 }

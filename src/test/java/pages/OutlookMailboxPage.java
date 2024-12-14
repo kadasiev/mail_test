@@ -25,7 +25,7 @@ public class OutlookMailboxPage extends BasePage {
     private WebElement acceptCookiesButton;
 
     public boolean isEmailArrived(String sender, String subject) {
-        wait.until(ExpectedConditions.visibilityOfAllElements(letters));
+        waitForVisibilityOfAll(letters);
         boolean isArrived = false;
 
        for(WebElement letter : letters){
@@ -38,7 +38,7 @@ public class OutlookMailboxPage extends BasePage {
     }
 
     public boolean isEmailUnread(String sender, String subject) {
-        wait.until(ExpectedConditions.visibilityOfAllElements(letters));
+        waitForVisibilityOfAll(letters);
         boolean isArrived = false;
 
         for(WebElement letter : letters) {
@@ -52,7 +52,7 @@ public class OutlookMailboxPage extends BasePage {
     }
 
     public String getEmailContent(String sender, String subject) {
-        wait.until(ExpectedConditions.visibilityOfAllElements(letters));
+        waitForVisibilityOfAll(letters);
 
         for(WebElement letter : letters) {
             if(letter.getAttribute("aria-label").contains(sender + " " + subject)) {
@@ -65,18 +65,13 @@ public class OutlookMailboxPage extends BasePage {
     }
 
     public void signOut() {
-        wait.until(ExpectedConditions.visibilityOf(menuButton));
-        menuButton.click();
-        wait.until(ExpectedConditions.visibilityOf(signOutButton));
-        signOutButton.click();
+        waitAndClick(menuButton);
+        waitAndClick(signOutButton);
 
         try {
             WebDriverWait waitForCookies = new WebDriverWait(driver, Duration.ofSeconds(30));
             waitForCookies.until(ExpectedConditions.visibilityOf(acceptCookiesButton));
             acceptCookiesButton.click();
-        } catch(TimeoutException ignored) {
-        }
+        } catch(TimeoutException ignored) {}
     }
 }
-
-

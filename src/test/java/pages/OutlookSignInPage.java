@@ -25,17 +25,13 @@ public class OutlookSignInPage extends BasePage{
         return this;
     }
 
-    public OutlookMailboxPage signIn(String username, String password) {
-        wait.until(ExpectedConditions.visibilityOf(usernameField));
-        usernameField.sendKeys(username);
+    public void signIn(String username, String password) {
+        waitAndSendKeys(usernameField, username);
         nextButton.click();
 
-        wait.until(ExpectedConditions.visibilityOf(passwordField));
-        passwordField.sendKeys(password);
+        waitAndSendKeys(passwordField, password);
         signInButton.click();
 
-        wait.until(ExpectedConditions.visibilityOf(doNotStaySignInButton));
-        doNotStaySignInButton.click();
-        return new OutlookMailboxPage();
+        waitAndClick(doNotStaySignInButton);
     }
 }
