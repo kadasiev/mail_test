@@ -8,7 +8,7 @@ public class LogoutSteps extends BaseSteps {
         .acceptCookies();
   }
 
-  public void mailLogout() {
+  public void mailLogOut() {
     mailMailboxPage.openMenu()
         .clickLogOut();
   }

@@ -15,11 +15,6 @@ public class MailSignInPage {
     Element errorMessageFromWrongUsername = Element.byXpath("//small[@class='base-0-2-25 small-0-2-34 error-0-2-40']");
     Element errorMessageFromWrongPassword = Element.byXpath("//div[@data-test-id='password-input-error']");
 
-    public MailSignInPage openPage() {
-        Driver.navigateTo("https://mail.ru/");
-        return this;
-    }
-
     public MailSignInPage openSignInWindow() {
         openSignInFormButton.click();
         return this;

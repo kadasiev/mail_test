@@ -11,6 +11,7 @@ public class LoginTest extends BaseTest {
   private static final String MAIL = "selenium.test124@mail.ru";
   private static final String PASSWORD = "q2r5h7k9#";
   private static final String EXPECTED_TITLE = "Входящие - Почта Mail";
+  private static final String MAIL_BASE_PAGE = "https://mail.ru/";
 
   @DataProvider(name = "dataForUsernameField")
   public Object[][] dataForUsernameField() {
@@ -29,9 +30,10 @@ public class LoginTest extends BaseTest {
 
   @Test()
   public void signInWithValidUsernameAndPassword() {
+    navigationSteps.openPage(MAIL_BASE_PAGE);
     loginSteps.mailLogin(MAIL, PASSWORD);
     String mailboxTitle = loginSteps.getTitle();
-    logoutSteps.mailLogout();
+    logoutSteps.mailLogOut();
 
     assertTrue(mailboxTitle.contains(EXPECTED_TITLE),
         "Fail to log-in with valid username and password!");
@@ -40,6 +42,7 @@ public class LoginTest extends BaseTest {
   @Test(dataProvider = "dataForUsernameField")
   public void signInWithWrongUsername(String username, String expectedErrorMessage,
       String assertFailMessage) {
+    navigationSteps.openPage(MAIL_BASE_PAGE);
     loginSteps.mailEnterMail(username);
 
     assertEquals(loginSteps.getErrorMessageFromWrongUsername(),
@@ -49,6 +52,7 @@ public class LoginTest extends BaseTest {
   @Test(dataProvider = "dataForPasswordField")
   public void signInWithWrongPassword(String username, String password,
       String expectedErrorMessage, String assertFailMessage) {
+    navigationSteps.openPage(MAIL_BASE_PAGE);
     loginSteps.mailLogin(username, password);
 
     assertEquals(loginSteps.getErrorMessageFromWrongPassword(),
