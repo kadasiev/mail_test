@@ -47,12 +47,20 @@ public class OutlookMailboxPage {
         return "The letter doesn't exist";
     }
 
-    public void signOut() {
+    public OutlookMailboxPage openMenu() {
         menuButton.click();
-        signOutButton.click();
+        return this;
+    }
 
+    public OutlookMailboxPage clickLogOut() {
+        signOutButton.click();
+        return this;
+    }
+
+    public void acceptCookies() {
         try {
             acceptCookiesButton.waitAndClick(30);
         } catch(TimeoutException ignored) {}
+
     }
 }

@@ -3,10 +3,13 @@ package steps;
 public class LogoutSteps extends BaseSteps {
 
   public void outlookLogOut() {
-    outlookMailboxPage.signOut();
+    outlookMailboxPage.openMenu()
+        .clickLogOut()
+        .acceptCookies();
   }
 
   public void mailLogout() {
-    mailMailboxPage.signOut();
+    mailMailboxPage.openMenu()
+        .clickLogOut();
   }
 }

@@ -3,7 +3,6 @@ package pages;
 import driver.Driver;
 import util.Element;
 
-
 public class MailMailboxPage {
 
     Element menuButton = Element.byXpath("//img[@alt='selenium.test124@mail.ru']");
@@ -19,9 +18,14 @@ public class MailMailboxPage {
         return Driver.getTitle();
     }
 
-    public void signOut() {
+    public MailMailboxPage openMenu() {
         menuButton.click();
+        return this;
+    }
+
+    public MailMailboxPage clickLogOut() {
         logOutButton.click();
+        return this;
     }
 
     public MailMailboxPage createLetter() {

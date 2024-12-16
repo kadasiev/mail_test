@@ -16,7 +16,6 @@ public class MailSignInPage {
     Element errorMessageFromWrongPassword = Element.byXpath("//div[@data-test-id='password-input-error']");
     Element dynamicElement = Element.byXpath("//iframe[@class='ag-popup__frame__layout__iframe']");
 
-
     public MailSignInPage openPage() {
         Driver.navigateTo("https://mail.ru/");
         return this;
