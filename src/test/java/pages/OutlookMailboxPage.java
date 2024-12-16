@@ -2,33 +2,20 @@ package pages;
 
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import java.time.Duration;
-import java.util.List;
+import util.Element;
 
-public class OutlookMailboxPage extends BasePage {
-    @FindBy(xpath = "//div[@class='hcptT gDC9O']")
-    private List<WebElement> letters;
+public class OutlookMailboxPage {
 
-    @FindBy(xpath = "//div[@id='UniqueMessageBody']/div/div/div")
-    private WebElement letterContent;
-
-    @FindBy(xpath = "//img[@alt='DK']")
-    private WebElement menuButton;
-
-    @FindBy(xpath = "//a[@id='mectrl_body_signOut']")
-    private WebElement signOutButton;
-
-    @FindBy(xpath = "//button[@id='onetrust-accept-btn-handler']")
-    private WebElement acceptCookiesButton;
+    Element letters = Element.byXpath("//div[@class='hcptT gDC9O']");
+    Element letterContent = Element.byXpath("//div[@id='UniqueMessageBody']/div/div/div");
+    Element menuButton = Element.byXpath("//img[@alt='DK']");
+    Element signOutButton = Element.byXpath("//a[@id='mectrl_body_signOut']");
+    Element acceptCookiesButton = Element.byXpath("//button[@id='onetrust-accept-btn-handler']");
 
     public boolean isEmailArrived(String sender, String subject) {
-        waitForVisibilityOfAll(letters);
         boolean isArrived = false;
 
-       for(WebElement letter : letters){
+       for(WebElement letter : letters.getList()){
             if(letter.getAttribute("aria-label").contains(sender + " " + subject)) {
                 isArrived = true;
                 break;
@@ -38,10 +25,9 @@ public class OutlookMailboxPage extends BasePage {
     }
 
     public boolean isEmailUnread(String sender, String subject) {
-        waitForVisibilityOfAll(letters);
         boolean isArrived = false;
 
-        for(WebElement letter : letters) {
+        for(WebElement letter : letters.getList()) {
             if(letter.getAttribute("aria-label").contains("Unread")
                 && letter.getAttribute("aria-label").contains(sender + " " + subject)) {
                 isArrived = true;
@@ -52,12 +38,9 @@ public class OutlookMailboxPage extends BasePage {
     }
 
     public String getEmailContent(String sender, String subject) {
-        waitForVisibilityOfAll(letters);
-
-        for(WebElement letter : letters) {
+        for(WebElement letter : letters.getList()) {
             if(letter.getAttribute("aria-label").contains(sender + " " + subject)) {
                 letter.click();
-                wait.until(ExpectedConditions.visibilityOf(letterContent));
                 return letterContent.getText().trim();
             }
         }
@@ -65,13 +48,11 @@ public class OutlookMailboxPage extends BasePage {
     }
 
     public void signOut() {
-        waitAndClick(menuButton);
-        waitAndClick(signOutButton);
+        menuButton.click();
+        signOutButton.click();
 
         try {
-            WebDriverWait waitForCookies = new WebDriverWait(driver, Duration.ofSeconds(30));
-            waitForCookies.until(ExpectedConditions.visibilityOf(acceptCookiesButton));
-            acceptCookiesButton.click();
+            acceptCookiesButton.waitAndClick(30);
         } catch(TimeoutException ignored) {}
     }
 }

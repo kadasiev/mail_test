@@ -3,21 +3,26 @@ package steps;
 public class LoginSteps extends BaseSteps{
 
   public void outlookLogin() {
-    outlookSignInPage.openPage()
-        .signIn("selenium.test124@outlook.com", "q2r5h7k9#");
+    outlookLogInPage.openPage()
+        .enterAccountName("selenium.test124@outlook.com")
+        .submitAccountName()
+        .enterPassword("q2r5h7k9#")
+        .submitPassword()
+        .clickDoNotStaySignInButton();
   }
 
-  public void mailLogin(String username, String password) {
+  public void mailLogin(String mail, String password) {
     mailSignInPage.openPage()
         .openSignInWindow()
-        .enterUsername(username)
+        .enterUsername(mail)
+        .chooseAnotherWayToLogIn()
         .enterPassword(password);
   }
 
-  public void mailEnterUsername(String username) {
+  public void mailEnterMail(String mail) {
     mailSignInPage.openPage()
         .openSignInWindow()
-        .enterUsername(username);
+        .enterUsername(mail);
   }
 
   public String getTitle() {

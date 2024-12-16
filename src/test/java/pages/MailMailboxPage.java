@@ -1,49 +1,55 @@
 package pages;
 
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import java.util.List;
+import driver.Driver;
+import util.Element;
 
-public class MailMailboxPage extends BasePage {
-    @FindBy(xpath = "//img[@alt='selenium.test124@mail.ru']")
-    private WebElement menuButton;
 
-    @FindBy(xpath = "//div[@class='ph-text svelte-1popff4']")
-    private List<WebElement> menuItems;
+public class MailMailboxPage {
 
-    @FindBy(xpath = "//span[@class='compose-button__txt']")
-    private WebElement newLetterButton;
-
-    @FindBy(xpath = "//input[@tabindex='100']")
-    private WebElement sendToField;
-
-    @FindBy(xpath = "//input[@name='Subject']")
-    private WebElement subjectField;
-
-    @FindBy(xpath = "//div[@tabindex='505']")
-    private WebElement bodyField;
-
-    @FindBy(xpath = "//span[@class='vkuiButton__content']")
-    private WebElement sendButton;
+    Element menuButton = Element.byXpath("//img[@alt='selenium.test124@mail.ru']");
+    Element logOutButton = Element.byXpath("//*[contains(@class, 'item__social')][4]");
+    Element newLetterButton = Element.byXpath("//span[@class='compose-button__txt']");
+    Element sendToField = Element.byXpath("//input[@tabindex='100']");
+    Element subjectField = Element.byXpath("//input[@name='Subject']");
+    Element bodyField = Element.byXpath("//div[@tabindex='505']");
+    Element sendButton = Element.byXpath("//span[@class='vkuiButton__content']");
 
     public String getTitle() {
-        wait.until(ExpectedConditions.titleIs("Почта Mail.ru"));
-        return driver.getTitle();
+        Driver.waitFor(3);
+        return Driver.getTitle();
     }
 
     public void signOut() {
-        waitAndClick(menuButton);
-        waitForVisibilityOfAll(menuItems);
-        menuItems.get(3).click();
+        menuButton.click();
+        logOutButton.click();
     }
 
-    public MailMailboxPage sendLetter(String sendTo, String subject, String body) {
-        waitAndClick(newLetterButton);
-        waitAndSendKeys(sendToField, sendTo);
+    public MailMailboxPage createLetter() {
+        newLetterButton.click();
+        return this;
+    }
+
+    public MailMailboxPage fillReceiver(String receiver) {
+        sendToField.sendKeys(receiver);
+        return this;
+    }
+
+    public MailMailboxPage fillSubject(String subject) {
         subjectField.sendKeys(subject);
+        return this;
+    }
+
+    public MailMailboxPage clearMailBody() {
         bodyField.clear();
+        return this;
+    }
+
+    public MailMailboxPage fillMailBody(String body) {
         bodyField.sendKeys(body);
+        return this;
+    }
+
+    public MailMailboxPage sendLetter() {
         sendButton.click();
         return this;
     }

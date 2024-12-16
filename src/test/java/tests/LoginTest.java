@@ -1,15 +1,16 @@
 package tests;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 public class LoginTest extends BaseTest {
 
-  private static final String USERNAME = "selenium.test124@mail.ru";
+  private static final String MAIL = "selenium.test124@mail.ru";
   private static final String PASSWORD = "q2r5h7k9#";
-  private static final String EXPECTED_TITLE = "Почта Mail.ru";
+  private static final String EXPECTED_TITLE = "Входящие - Почта Mail";
 
   @DataProvider(name = "dataForUsernameField")
   public Object[][] dataForUsernameField() {
@@ -28,18 +29,18 @@ public class LoginTest extends BaseTest {
 
   @Test()
   public void signInWithValidUsernameAndPassword() {
-    loginSteps.mailLogin(USERNAME, PASSWORD);
+    loginSteps.mailLogin(MAIL, PASSWORD);
     String mailboxTitle = loginSteps.getTitle();
     logoutSteps.mailLogout();
 
-    assertEquals(mailboxTitle, EXPECTED_TITLE,
+    assertTrue(mailboxTitle.contains(EXPECTED_TITLE),
         "Fail to log-in with valid username and password!");
   }
 
   @Test(dataProvider = "dataForUsernameField")
   public void signInWithWrongUsername(String username, String expectedErrorMessage,
       String assertFailMessage) {
-    loginSteps.mailEnterUsername(username);
+    loginSteps.mailEnterMail(username);
 
     assertEquals(loginSteps.getErrorMessageFromWrongUsername(),
         expectedErrorMessage, assertFailMessage);

@@ -3,7 +3,12 @@ package steps;
 public class EmailVerificationSteps extends BaseSteps {
 
   public void sendLetterFromMail(String receiver, String subject, String letter) {
-    mailMailboxPage.sendLetter(receiver, subject, letter)
+    mailMailboxPage.createLetter()
+        .fillReceiver(receiver)
+        .fillSubject(subject)
+        .clearMailBody()
+        .fillMailBody(letter)
+        .sendLetter()
         .waitUntilEmailIsSent();
   }
 
