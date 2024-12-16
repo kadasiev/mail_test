@@ -4,7 +4,6 @@ import driver.DriverFactory;
 import java.time.Duration;
 import java.util.List;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -12,13 +11,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class Element {
 
   private final By by;
-  WebDriverWait wait;
-  WebDriver driver;
+  public static final int TIMEOUT = 20;
 
   private Element(By by) {
     this.by = by;
-    driver = DriverFactory.getDriver();
-    wait = Wait.getWait();
   }
 
   public static Element byXpath(String xpath) {
@@ -26,20 +22,23 @@ public class Element {
   }
 
   public WebElement waitForVisibility() {
-    return wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+    return new WebDriverWait(DriverFactory.getDriver(), Duration.ofSeconds(TIMEOUT))
+        .until(ExpectedConditions.visibilityOfElementLocated(by));
   }
 
   public WebElement waitForVisibilityFor(long seconds) {
-    return new WebDriverWait(driver, Duration.ofSeconds(seconds))
+    return new WebDriverWait(DriverFactory.getDriver(), Duration.ofSeconds(seconds))
         .until(ExpectedConditions.visibilityOfElementLocated(by));
   }
 
   public List<WebElement> waitForVisibilityOfAll() {
-    return wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(by));
+    return new WebDriverWait(DriverFactory.getDriver(), Duration.ofSeconds(TIMEOUT))
+        .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(by));
   }
 
   public void switchToFrame() {
-    wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(driver.findElement(by)));
+    new WebDriverWait(DriverFactory.getDriver(), Duration.ofSeconds(TIMEOUT))
+        .until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(DriverFactory.getDriver().findElement(by)));
   }
 
   public void click() {
@@ -70,7 +69,7 @@ public class Element {
     return waitForVisibilityOfAll();
   }
 
-  public boolean isEmpty() {
-    return waitForVisibilityOfAll().isEmpty();
+  public boolean isPresent() {
+    return !waitForVisibilityOfAll().isEmpty();
   }
 }

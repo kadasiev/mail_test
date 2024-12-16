@@ -8,8 +8,7 @@ public class EmailVerificationSteps extends BaseSteps {
         .fillSubject(subject)
         .clearMailBody()
         .fillMailBody(letter)
-        .sendLetter()
-        .waitUntilEmailIsSent();
+        .sendLetter();
   }
 
   public boolean isEmailArrivedToOutlook(String sender, String subject) {

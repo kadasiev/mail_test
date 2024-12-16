@@ -14,7 +14,6 @@ public class MailSignInPage {
     Element signInButton = Element.byXpath("//button/span[@class='inner-0-2-81 innerTextWrapper-0-2-82']");
     Element errorMessageFromWrongUsername = Element.byXpath("//small[@class='base-0-2-25 small-0-2-34 error-0-2-40']");
     Element errorMessageFromWrongPassword = Element.byXpath("//div[@data-test-id='password-input-error']");
-    Element dynamicElement = Element.byXpath("//iframe[@class='ag-popup__frame__layout__iframe']");
 
     public MailSignInPage openPage() {
         Driver.navigateTo("https://mail.ru/");
@@ -56,16 +55,11 @@ public class MailSignInPage {
     }
 
     public String getErrorMessageFromWrongPassword() {
-        if(isIframeExist()) {
+        if(signInIframe.isPresent()) {
             signInIframe.switchToFrame();
         }
         String errorMessage = errorMessageFromWrongPassword.getText();
         Driver.switchToDefaultContent();
         return errorMessage;
     }
-
-    public boolean isIframeExist() {
-        return !dynamicElement.isEmpty();
-    }
 }
-

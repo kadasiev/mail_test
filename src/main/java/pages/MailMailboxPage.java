@@ -57,10 +57,4 @@ public class MailMailboxPage {
         sendButton.click();
         return this;
     }
-
-    public void waitUntilEmailIsSent() {
-        try {
-            Thread.sleep(30000);
-        } catch (InterruptedException ignored) {}
-    }
 }
