@@ -1,14 +1,16 @@
 package pages;
 
-import util.Element;
+import static element.Element.xpath;
+
+import element.Element;
 
 public class OutlookLogInPage {
 
-    Element accountNameField = Element.byXpath("//input[@data-report-event='Signin_Email_Phone_Skype']");
-    Element nextButton = Element.byXpath("//input[@data-report-event='Signin_Submit']");
-    Element passwordField = Element.byXpath("//input[@name='passwd']");
-    Element signInButton = Element.byXpath("//input[@data-report-event='Signin_Submit']");
-    Element doNotStaySignInButton = Element.byXpath("//input[@id='idBtn_Back']");
+    Element accountNameField = xpath("//input[@data-report-event='Signin_Email_Phone_Skype']");
+    Element nextButton = xpath("//input[@data-report-event='Signin_Submit']");
+    Element passwordField = xpath("//input[@name='passwd']");
+    Element signInButton = xpath("//input[@data-report-event='Signin_Submit']");
+    Element doNotStaySignInButton = xpath("//input[@id='idBtn_Back']");
 
     public OutlookLogInPage enterAccountName(String accountName) {
         accountNameField.sendKeys(accountName);

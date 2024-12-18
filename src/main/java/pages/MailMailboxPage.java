@@ -1,20 +1,22 @@
 package pages;
 
+import static element.Element.xpath;
+
 import driver.Driver;
-import util.Element;
+import element.Element;
 
 public class MailMailboxPage {
 
-    Element menuButton = Element.byXpath("//img[@alt='selenium.test124@mail.ru']");
-    Element logOutButton = Element.byXpath("//*[contains(@class, 'item__social')][4]");
-    Element newLetterButton = Element.byXpath("//span[@class='compose-button__txt']");
-    Element sendToField = Element.byXpath("//input[@tabindex='100']");
-    Element subjectField = Element.byXpath("//input[@name='Subject']");
-    Element bodyField = Element.byXpath("//div[@tabindex='505']");
-    Element sendButton = Element.byXpath("//span[@class='vkuiButton__content']");
+    Element menuButton = xpath("//img[@alt='selenium.test124@mail.ru']");
+    Element logOutButton = xpath("//*[contains(@class, 'item__social')][4]");
+    Element newLetterButton = xpath("//span[@class='compose-button__txt']");
+    Element sendToField = xpath("//input[@tabindex='100']");
+    Element subjectField = xpath("//input[@name='Subject']");
+    Element bodyField = xpath("//div[@tabindex='505']");
+    Element sendButton = xpath("//span[@class='vkuiButton__content']");
 
     public String getTitle() {
-        Driver.waitFor(3);
+        Driver.waitFor(10);
         return Driver.getTitle();
     }
 

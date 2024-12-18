@@ -8,7 +8,6 @@ public class Driver {
 
   public static final int TIMEOUT = 20;
 
-
   public static void waitUntilTitleIs(String expectedTitle) {
     new WebDriverWait(DriverFactory.getDriver(), Duration.ofSeconds(TIMEOUT))
     .until(ExpectedConditions.titleIs(expectedTitle));

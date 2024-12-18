@@ -1,19 +1,21 @@
 package pages;
 
+import static element.Element.xpath;
+
 import driver.Driver;
-import util.Element;
+import element.Element;
 
 public class MailSignInPage {
 
-    Element openSignInFormButton = Element.byXpath("//*[contains(@class, 'btn_primary')]");
-    Element signInIframe = Element.byXpath("//*[contains(@class, 'layout__iframe')]");
-    Element accountNameField = Element.byXpath("//input[@name='username']");
-    Element enterPasswordButton = Element.byXpath("//div/button[@data-test-id='next-button']");
-    Element tryAnotherWayToLogOnButton = Element.byXpath("//*[contains(@data-test-id, 'restore-type-btn')]");
-    Element passwordField = Element.byXpath("//div/input[@name='password']");
-    Element signInButton = Element.byXpath("//button/span[@class='inner-0-2-81 innerTextWrapper-0-2-82']");
-    Element errorMessageFromWrongUsername = Element.byXpath("//small[@class='base-0-2-25 small-0-2-34 error-0-2-40']");
-    Element errorMessageFromWrongPassword = Element.byXpath("//div[@data-test-id='password-input-error']");
+    Element openSignInFormButton = xpath("//*[contains(@class, 'btn_primary')]");
+    Element signInIframe = xpath("//*[contains(@class, 'layout__iframe')]");
+    Element accountNameField = xpath("//input[@name='username']");
+    Element enterPasswordButton = xpath("//div/button[@data-test-id='next-button']");
+    Element tryAnotherWayToLogOnButton = xpath("//*[contains(@data-test-id, 'restore-type-btn')]");
+    Element passwordField = xpath("//div/input[@name='password']");
+    Element signInButton = xpath("//button/span[@class='inner-0-2-81 innerTextWrapper-0-2-82']");
+    Element errorMessageFromWrongUsername = xpath("//small[@class='base-0-2-25 small-0-2-34 error-0-2-40']");
+    Element errorMessageFromWrongPassword = xpath("//div[@data-test-id='password-input-error']");
 
     public MailSignInPage openSignInWindow() {
         openSignInFormButton.click();

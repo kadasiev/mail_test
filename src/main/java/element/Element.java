@@ -1,9 +1,10 @@
-package util;
+package element;
 
 import driver.DriverFactory;
 import java.time.Duration;
 import java.util.List;
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -17,7 +18,7 @@ public class Element {
     this.by = by;
   }
 
-  public static Element byXpath(String xpath) {
+  public static Element xpath(String xpath) {
     return new Element(By.xpath(xpath));
   }
 
@@ -29,6 +30,11 @@ public class Element {
   public WebElement waitForVisibilityFor(long seconds) {
     return new WebDriverWait(DriverFactory.getDriver(), Duration.ofSeconds(seconds))
         .until(ExpectedConditions.visibilityOfElementLocated(by));
+  }
+
+  public void waitForPresence() {
+    new WebDriverWait(DriverFactory.getDriver(), Duration.ofSeconds(TIMEOUT))
+        .until(ExpectedConditions.presenceOfElementLocated(by));
   }
 
   public List<WebElement> waitForVisibilityOfAll() {
@@ -45,8 +51,10 @@ public class Element {
     waitForVisibility().click();
   }
 
-  public void waitAndClick(long seconds) {
-    waitForVisibilityFor(seconds).click();
+  public void tryToClickFor(long seconds) {
+    try {
+      waitForVisibilityFor(seconds).click();
+    } catch(TimeoutException ignored) {}
   }
 
   public void sendKeys(String keys) {
@@ -70,6 +78,11 @@ public class Element {
   }
 
   public boolean isPresent() {
-    return !waitForVisibilityOfAll().isEmpty();
+    try {
+      waitForPresence();
+      return true;
+    } catch (TimeoutException e) {
+      return false;
+    }
   }
 }

@@ -1,16 +1,18 @@
 package pages;
 
+import static element.Element.xpath;
+
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
-import util.Element;
+import element.Element;
 
 public class OutlookMailboxPage {
 
-    Element letters = Element.byXpath("//div[@class='hcptT gDC9O']");
-    Element letterContent = Element.byXpath("//div[@id='UniqueMessageBody']/div/div/div");
-    Element menuButton = Element.byXpath("//img[@alt='DK']");
-    Element signOutButton = Element.byXpath("//a[@id='mectrl_body_signOut']");
-    Element acceptCookiesButton = Element.byXpath("//button[@id='onetrust-accept-btn-handler']");
+    Element letters = xpath("//div[@class='hcptT gDC9O']");
+    Element letterContent = xpath("//div[@id='UniqueMessageBody']/div/div/div");
+    Element menuButton = xpath("//img[@alt='DK']");
+    Element signOutButton = xpath("//a[@id='mectrl_body_signOut']");
+    Element acceptCookiesButton = xpath("//button[@id='onetrust-accept-btn-handler']");
 
     public boolean isEmailArrived(String sender, String subject) {
         boolean isArrived = false;
@@ -58,9 +60,6 @@ public class OutlookMailboxPage {
     }
 
     public void acceptCookies() {
-        try {
-            acceptCookiesButton.waitAndClick(30);
-        } catch(TimeoutException ignored) {}
-
+        acceptCookiesButton.tryToClickFor(30);
     }
 }
