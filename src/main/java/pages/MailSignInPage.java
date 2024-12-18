@@ -3,7 +3,6 @@ package pages;
 import static driver.Driver.switchToDefaultContent;
 import static element.Element.xpath;
 
-import driver.Driver;
 import element.Element;
 
 public class MailSignInPage {
