@@ -4,14 +4,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class DriverFactory {
+
     private static WebDriver driver;
 
-    public static WebDriver getDriver() {
+    public static void openBrowser() {
         if (driver == null) {
             driver = new FirefoxDriver();
             driver.manage().window().maximize();
         }
-        return driver;
     }
 
     public static void closeBrowser() {
@@ -19,5 +19,9 @@ public class DriverFactory {
             driver.quit();
             driver = null;
         }
+    }
+
+    public static WebDriver getDriver() {
+        return driver;
     }
 }
