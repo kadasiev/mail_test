@@ -1,5 +1,6 @@
 package tests;
 
+import static driver.Driver.openPage;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
@@ -30,7 +31,7 @@ public class LoginTest extends BaseTest {
 
   @Test()
   public void signInWithValidUsernameAndPassword() {
-    navigationSteps.openPage(MAIL_BASE_PAGE);
+    openPage(MAIL_BASE_PAGE);
     loginSteps.mailLogin(MAIL, PASSWORD);
     String mailboxTitle = loginSteps.getTitle();
     logoutSteps.mailLogOut();
@@ -42,8 +43,8 @@ public class LoginTest extends BaseTest {
   @Test(dataProvider = "dataForUsernameField")
   public void signInWithWrongUsername(String username, String expectedErrorMessage,
       String assertFailMessage) {
-    navigationSteps.openPage(MAIL_BASE_PAGE);
-    loginSteps.mailEnterMail(username);
+    openPage(MAIL_BASE_PAGE);
+    loginSteps.mailEnterAccountName(username);
 
     assertEquals(loginSteps.getErrorMessageFromWrongUsername(),
         expectedErrorMessage, assertFailMessage);
@@ -52,7 +53,7 @@ public class LoginTest extends BaseTest {
   @Test(dataProvider = "dataForPasswordField")
   public void signInWithWrongPassword(String username, String password,
       String expectedErrorMessage, String assertFailMessage) {
-    navigationSteps.openPage(MAIL_BASE_PAGE);
+    openPage(MAIL_BASE_PAGE);
     loginSteps.mailLogin(username, password);
 
     assertEquals(loginSteps.getErrorMessageFromWrongPassword(),

@@ -1,5 +1,6 @@
 package pages;
 
+import static driver.Driver.switchToDefaultContent;
 import static element.Element.xpath;
 
 import driver.Driver;
@@ -11,7 +12,7 @@ public class MailSignInPage {
     Element signInIframe = xpath("//*[contains(@class, 'layout__iframe')]");
     Element accountNameField = xpath("//input[@name='username']");
     Element enterPasswordButton = xpath("//div/button[@data-test-id='next-button']");
-    Element tryAnotherWayToLogOnButton = xpath("//*[contains(@data-test-id, 'restore-type-btn')]");
+    Element tryAnotherWayToLogInButton = xpath("//*[contains(@data-test-id, 'restore-type-btn')]");
     Element passwordField = xpath("//div/input[@name='password']");
     Element signInButton = xpath("//button/span[@class='inner-0-2-81 innerTextWrapper-0-2-82']");
     Element errorMessageFromWrongUsername = xpath("//small[@class='base-0-2-25 small-0-2-34 error-0-2-40']");
@@ -22,18 +23,18 @@ public class MailSignInPage {
         return this;
     }
 
-    public MailSignInPage enterUsername(String name) {
+    public MailSignInPage enterAccountName(String name) {
         signInIframe.switchToFrame();
         accountNameField.sendKeys(name);
         enterPasswordButton.click();
-        Driver.switchToDefaultContent();
+        switchToDefaultContent();
         return this;
     }
 
     public MailSignInPage chooseAnotherWayToLogIn() {
         signInIframe.switchToFrame();
-        tryAnotherWayToLogOnButton.click();
-        Driver.switchToDefaultContent();
+        tryAnotherWayToLogInButton.click();
+        switchToDefaultContent();
         return this;
     }
 
@@ -41,13 +42,13 @@ public class MailSignInPage {
         signInIframe.switchToFrame();
         passwordField.sendKeys(password);
         signInButton.click();
-        Driver.switchToDefaultContent();
+        switchToDefaultContent();
     }
 
     public String getErrorMessageFromWrongUsername() {
         signInIframe.switchToFrame();
         String errorMessage = errorMessageFromWrongUsername.getText();
-        Driver.switchToDefaultContent();
+        switchToDefaultContent();
         return errorMessage;
     }
 
@@ -56,7 +57,7 @@ public class MailSignInPage {
             signInIframe.switchToFrame();
         }
         String errorMessage = errorMessageFromWrongPassword.getText();
-        Driver.switchToDefaultContent();
+        switchToDefaultContent();
         return errorMessage;
     }
 }

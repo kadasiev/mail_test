@@ -1,6 +1,7 @@
 package element;
 
-import driver.DriverFactory;
+import static driver.DriverFactory.getDriver;
+
 import java.time.Duration;
 import java.util.List;
 import org.openqa.selenium.By;
@@ -23,28 +24,28 @@ public class Element {
   }
 
   public WebElement waitForVisibility() {
-    return new WebDriverWait(DriverFactory.getDriver(), Duration.ofSeconds(TIMEOUT))
+    return new WebDriverWait(getDriver(), Duration.ofSeconds(TIMEOUT))
         .until(ExpectedConditions.visibilityOfElementLocated(by));
   }
 
   public WebElement waitForVisibilityFor(long seconds) {
-    return new WebDriverWait(DriverFactory.getDriver(), Duration.ofSeconds(seconds))
+    return new WebDriverWait(getDriver(), Duration.ofSeconds(seconds))
         .until(ExpectedConditions.visibilityOfElementLocated(by));
   }
 
   public void waitForPresence() {
-    new WebDriverWait(DriverFactory.getDriver(), Duration.ofSeconds(TIMEOUT))
+    new WebDriverWait(getDriver(), Duration.ofSeconds(TIMEOUT))
         .until(ExpectedConditions.presenceOfElementLocated(by));
   }
 
   public List<WebElement> waitForVisibilityOfAll() {
-    return new WebDriverWait(DriverFactory.getDriver(), Duration.ofSeconds(TIMEOUT))
+    return new WebDriverWait(getDriver(), Duration.ofSeconds(TIMEOUT))
         .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(by));
   }
 
   public void switchToFrame() {
-    new WebDriverWait(DriverFactory.getDriver(), Duration.ofSeconds(TIMEOUT))
-        .until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(DriverFactory.getDriver().findElement(by)));
+    new WebDriverWait(getDriver(), Duration.ofSeconds(TIMEOUT))
+        .until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(getDriver().findElement(by)));
   }
 
   public void click() {

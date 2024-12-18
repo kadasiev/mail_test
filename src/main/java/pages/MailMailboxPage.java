@@ -1,5 +1,6 @@
 package pages;
 
+import static driver.Driver.waitFor;
 import static element.Element.xpath;
 
 import driver.Driver;
@@ -16,7 +17,7 @@ public class MailMailboxPage {
     Element sendButton = xpath("//span[@class='vkuiButton__content']");
 
     public String getTitle() {
-        Driver.waitFor(10);
+        waitFor(10);
         return Driver.getTitle();
     }
 
@@ -25,9 +26,8 @@ public class MailMailboxPage {
         return this;
     }
 
-    public MailMailboxPage clickLogOut() {
+    public void clickLogOut() {
         logOutButton.click();
-        return this;
     }
 
     public MailMailboxPage createLetter() {
@@ -55,8 +55,7 @@ public class MailMailboxPage {
         return this;
     }
 
-    public MailMailboxPage sendLetter() {
+    public void sendLetter() {
         sendButton.click();
-        return this;
     }
 }

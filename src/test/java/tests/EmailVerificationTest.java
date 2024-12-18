@@ -1,5 +1,7 @@
 package tests;
 
+import static driver.Driver.openPage;
+
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -16,11 +18,11 @@ public class EmailVerificationTest extends BaseTest {
 
   @Test()
   public void validateEmailIsArrived() {
-    navigationSteps.openPage(MAIL_BASE_PAGE);
+    openPage(MAIL_BASE_PAGE);
     loginSteps.mailLogin(USERNAME, PASSWORD);
     emailVerificationSteps.sendLetterFromMail(RECEIVER, SUBJECT + "1", LETTER);
     logoutSteps.mailLogOut();
-    navigationSteps.openPage(OUTLOOK_BASE_PAGE);
+    openPage(OUTLOOK_BASE_PAGE);
     loginSteps.outlookLogIn();
     boolean isArrived = emailVerificationSteps
         .isEmailArrivedToOutlook(SENDER, SUBJECT + "1");
@@ -31,11 +33,11 @@ public class EmailVerificationTest extends BaseTest {
 
   @Test()
   public void validateEmailUnread() {
-    navigationSteps.openPage(MAIL_BASE_PAGE);
+    openPage(MAIL_BASE_PAGE);
     loginSteps.mailLogin(USERNAME, PASSWORD);
     emailVerificationSteps.sendLetterFromMail(RECEIVER, SUBJECT + "2", LETTER);
     logoutSteps.mailLogOut();
-    navigationSteps.openPage(OUTLOOK_BASE_PAGE);
+    openPage(OUTLOOK_BASE_PAGE);
     loginSteps.outlookLogIn();
     boolean isUnread = emailVerificationSteps
         .isEmailUnreadInOutlook(SENDER, SUBJECT + "2");
@@ -46,11 +48,11 @@ public class EmailVerificationTest extends BaseTest {
 
   @Test()
   public void validateEmailContent() {
-    navigationSteps.openPage(MAIL_BASE_PAGE);
+    openPage(MAIL_BASE_PAGE);
     loginSteps.mailLogin(USERNAME, PASSWORD);
     emailVerificationSteps.sendLetterFromMail(RECEIVER, SUBJECT + "3", LETTER);
     logoutSteps.mailLogOut();
-    navigationSteps.openPage(OUTLOOK_BASE_PAGE);
+    openPage(OUTLOOK_BASE_PAGE);
     loginSteps.outlookLogIn();
     String emailContent = emailVerificationSteps
         .getEmailFromOutlook(SENDER, SUBJECT + "3");

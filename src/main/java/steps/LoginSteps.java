@@ -12,14 +12,14 @@ public class LoginSteps extends BaseSteps{
 
   public void mailLogin(String mail, String password) {
     mailSignInPage.openSignInWindow()
-        .enterUsername(mail)
+        .enterAccountName(mail)
         .chooseAnotherWayToLogIn()
         .enterPassword(password);
   }
 
-  public void mailEnterMail(String mail) {
+  public void mailEnterAccountName(String mail) {
     mailSignInPage.openSignInWindow()
-        .enterUsername(mail);
+        .enterAccountName(mail);
   }
 
   public String getTitle() {

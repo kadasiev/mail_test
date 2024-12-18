@@ -32,8 +32,7 @@ public class OutlookLogInPage {
         return this;
     }
 
-    public OutlookLogInPage clickDoNotStaySignInButton() {
+    public void clickDoNotStaySignInButton() {
         doNotStaySignInButton.click();
-        return this;
     }
 }
