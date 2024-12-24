@@ -1,13 +1,16 @@
 package element;
 
 import static driver.DriverFactory.getDriver;
+import static org.openqa.selenium.support.ui.ExpectedConditions.frameToBeAvailableAndSwitchToIt;
+import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfAllElementsLocatedBy;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 import java.time.Duration;
 import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Element {
@@ -25,27 +28,27 @@ public class Element {
 
   public WebElement waitForVisibility() {
     return new WebDriverWait(getDriver(), Duration.ofSeconds(TIMEOUT))
-        .until(ExpectedConditions.visibilityOfElementLocated(by));
+        .until(visibilityOfElementLocated(by));
   }
 
   public WebElement waitForVisibilityFor(long seconds) {
     return new WebDriverWait(getDriver(), Duration.ofSeconds(seconds))
-        .until(ExpectedConditions.visibilityOfElementLocated(by));
+        .until(visibilityOfElementLocated(by));
   }
 
   public void waitForPresence() {
     new WebDriverWait(getDriver(), Duration.ofSeconds(TIMEOUT))
-        .until(ExpectedConditions.presenceOfElementLocated(by));
+        .until(presenceOfElementLocated(by));
   }
 
   public List<WebElement> waitForVisibilityOfAll() {
     return new WebDriverWait(getDriver(), Duration.ofSeconds(TIMEOUT))
-        .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(by));
+        .until(visibilityOfAllElementsLocatedBy(by));
   }
 
   public void switchToFrame() {
     new WebDriverWait(getDriver(), Duration.ofSeconds(TIMEOUT))
-        .until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(getDriver().findElement(by)));
+        .until(frameToBeAvailableAndSwitchToIt(by));
   }
 
   public void click() {
