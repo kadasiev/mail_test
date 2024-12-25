@@ -1,7 +1,6 @@
 package driver;
 
 import static driver.DriverFactory.getDriver;
-import static driver.DriverFactory.openBrowser;
 
 import java.time.Duration;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -31,7 +30,6 @@ public class Driver {
   }
 
   public static void openPage(String url) {
-    openBrowser();
     getDriver().navigate().to(url);
   }
 }

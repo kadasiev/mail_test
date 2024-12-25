@@ -61,7 +61,7 @@ public class Element {
     } catch(TimeoutException ignored) {}
   }
 
-  public void sendKeys(String keys) {
+  public void sendKeys(CharSequence... keys) {
     waitForVisibility().sendKeys(keys);
   }
 

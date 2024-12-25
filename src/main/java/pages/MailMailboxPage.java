@@ -17,7 +17,7 @@ public class MailMailboxPage {
     Element sendButton = xpath("//span[@class='vkuiButton__content']");
 
     public String getTitle() {
-        waitFor(10);
+        waitFor(15);
         return Driver.getTitle();
     }
 
