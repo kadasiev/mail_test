@@ -1,5 +1,6 @@
 package tests;
 
+import static driver.DriverFactory.closeBrowser;
 import static driver.DriverFactory.openBrowser;
 
 import driver.DriverFactory;
@@ -22,6 +23,6 @@ public class BaseTest {
 
     @AfterClass
     public void tearDown() {
-        DriverFactory.closeBrowser();
+        closeBrowser();
     }
 }
