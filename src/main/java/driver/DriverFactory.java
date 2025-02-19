@@ -2,6 +2,7 @@ package driver;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class DriverFactory {
 
@@ -9,7 +10,14 @@ public class DriverFactory {
 
     public static void openBrowser() {
         if (driver == null) {
-            driver = new ChromeDriver();
+            switch(System.getProperty("browser")) {
+                case "firefox":
+                    driver = new FirefoxDriver();
+                    break;
+                case "chrome":
+                    driver = new ChromeDriver();
+                    break;
+            }
             driver.manage().window().maximize();
         }
     }

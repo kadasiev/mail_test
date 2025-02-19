@@ -29,7 +29,7 @@ public class LoginTest extends BaseTest {
             "Sign-in with empty password"}};
   }
 
-  @Test()
+  @Test(groups = {"regression", "run"})
   public void signInWithValidUsernameAndPassword() {
     openPage(MAIL_BASE_PAGE);
     loginSteps.mailLogin(MAIL, PASSWORD);
@@ -40,7 +40,7 @@ public class LoginTest extends BaseTest {
         "Fail to log-in with valid username and password!");
   }
 
-  @Test(dataProvider = "dataForUsernameField")
+  @Test(dataProvider = "dataForUsernameField", groups = {"regression"})
   public void signInWithWrongUsername(String username, String expectedErrorMessage,
       String assertFailMessage) {
     openPage(MAIL_BASE_PAGE);
@@ -50,7 +50,7 @@ public class LoginTest extends BaseTest {
         expectedErrorMessage, assertFailMessage);
   }
 
-  @Test(dataProvider = "dataForPasswordField")
+  @Test(dataProvider = "dataForPasswordField", groups = {"regression"})
   public void signInWithWrongPassword(String username, String password,
       String expectedErrorMessage, String assertFailMessage) {
     openPage(MAIL_BASE_PAGE);

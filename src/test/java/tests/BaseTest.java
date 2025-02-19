@@ -3,9 +3,8 @@ package tests;
 import static driver.DriverFactory.closeBrowser;
 import static driver.DriverFactory.openBrowser;
 
-import driver.DriverFactory;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import steps.EmailVerificationSteps;
 import steps.LoginSteps;
 import steps.LogoutSteps;
@@ -16,12 +15,12 @@ public class BaseTest {
     public LoginSteps loginSteps = new LoginSteps();
     public LogoutSteps logoutSteps = new LogoutSteps();
 
-    @BeforeClass
+    @BeforeMethod(groups = {"regression", "run"})
     public void setUp() {
         openBrowser();
     }
 
-    @AfterClass
+    @AfterMethod(groups = {"regression", "run"})
     public void tearDown() {
         closeBrowser();
     }

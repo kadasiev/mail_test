@@ -10,7 +10,7 @@ public class MailSignInPage {
     Element openSignInFormButton = xpath("//*[contains(@class, 'btn_primary')]");
     Element signInIframe = xpath("//*[contains(@class, 'layout__iframe')]");
     Element accountNameField = xpath("//input[@name='username']");
-    Element enterPasswordButton = xpath("//div/button[@data-test-id='next-button']");
+    Element enterPasswordButton = xpath("//div[contains(@class, 'submit')]/button");
     Element tryAnotherWayToLogInButton = xpath("//*[contains(@data-test-id, 'restore-type-btn')]");
     Element passwordField = xpath("//div/input[@name='password']");
     Element signInButton = xpath("//button/span[@class='inner-0-2-81 innerTextWrapper-0-2-82']");
