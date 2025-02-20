@@ -11,12 +11,8 @@ public class DriverFactory {
     public static void openBrowser() {
         if (driver == null) {
             switch(System.getProperty("browser")) {
-                case "firefox":
-                    driver = new FirefoxDriver();
-                    break;
-                case "chrome":
-                    driver = new ChromeDriver();
-                    break;
+                case "firefox" -> driver = new FirefoxDriver();
+                case "chrome" ->  driver = new ChromeDriver();
             }
             driver.manage().window().maximize();
         }

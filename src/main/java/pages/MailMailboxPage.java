@@ -15,6 +15,7 @@ public class MailMailboxPage {
     Element subjectField = xpath("//input[@name='Subject']");
     Element bodyField = xpath("//div[@tabindex='505']");
     Element sendButton = xpath("//span[@class='vkuiButton__content']");
+    Element emailIsSentNotificationsCloseButton = xpath("//span[contains(@class, 'button2_close')]/span[2]");
 
     public String getTitle() {
         waitFor(15);
@@ -55,7 +56,12 @@ public class MailMailboxPage {
         return this;
     }
 
-    public void sendLetter() {
+    public MailMailboxPage sendLetter() {
         sendButton.click();
+        return this;
+    }
+
+    public void closeEmailIsSentNotification() {
+        emailIsSentNotificationsCloseButton.click();
     }
 }

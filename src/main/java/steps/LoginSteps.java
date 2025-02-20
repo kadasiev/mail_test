@@ -1,20 +1,22 @@
 package steps;
 
+import static util.TestDataReader.getTestData;
+
 public class LoginSteps extends BaseSteps{
 
   public void outlookLogIn() {
-    outlookLogInPage.enterAccountName("selenium.test124@outlook.com")
+    outlookLogInPage.enterAccountName(getTestData("outLookAccountName"))
         .submitAccountName()
-        .enterPassword("q2r5h7k9#")
+        .enterPassword(getTestData("outLookPassword"))
         .submitPassword()
         .clickDoNotStaySignInButton();
   }
 
-  public void mailLogin(String mail, String password) {
+  public void mailLogin() {
     mailSignInPage.openSignInWindow()
-        .enterAccountName(mail)
+        .enterAccountName(getTestData("mailAccountName"))
         .chooseAnotherWayToLogIn()
-        .enterPassword(password);
+        .enterPassword(getTestData("mailPassword"));
   }
 
   public void mailEnterAccountName(String mail) {

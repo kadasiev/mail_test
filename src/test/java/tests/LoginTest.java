@@ -3,16 +3,14 @@ package tests;
 import static driver.Driver.openPage;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
+import static util.TestDataReader.getTestData;
 
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 public class LoginTest extends BaseTest {
 
-  private static final String MAIL = "selenium.test124@mail.ru";
-  private static final String PASSWORD = "q2r5h7k9#";
   private static final String EXPECTED_TITLE = "Входящие - Почта Mail";
-  private static final String MAIL_BASE_PAGE = "https://mail.ru/";
 
   @DataProvider(name = "dataForUsernameField")
   public Object[][] dataForUsernameField() {
@@ -29,10 +27,10 @@ public class LoginTest extends BaseTest {
             "Sign-in with empty password"}};
   }
 
-  @Test(groups = {"regression", "run"})
+  @Test(groups = {"regression"})
   public void signInWithValidUsernameAndPassword() {
-    openPage(MAIL_BASE_PAGE);
-    loginSteps.mailLogin(MAIL, PASSWORD);
+    openPage(getTestData("mailBasePage"));
+    loginSteps.mailLogin();
     String mailboxTitle = loginSteps.getTitle();
     logoutSteps.mailLogOut();
 
@@ -43,7 +41,7 @@ public class LoginTest extends BaseTest {
   @Test(dataProvider = "dataForUsernameField", groups = {"regression"})
   public void signInWithWrongUsername(String username, String expectedErrorMessage,
       String assertFailMessage) {
-    openPage(MAIL_BASE_PAGE);
+    openPage(getTestData("mailBasePage"));
     loginSteps.mailEnterAccountName(username);
 
     assertEquals(loginSteps.getErrorMessageFromWrongUsername(),
@@ -53,8 +51,8 @@ public class LoginTest extends BaseTest {
   @Test(dataProvider = "dataForPasswordField", groups = {"regression"})
   public void signInWithWrongPassword(String username, String password,
       String expectedErrorMessage, String assertFailMessage) {
-    openPage(MAIL_BASE_PAGE);
-    loginSteps.mailLogin(username, password);
+    openPage(getTestData("mailBasePage"));
+    loginSteps.mailLogin();
 
     assertEquals(loginSteps.getErrorMessageFromWrongPassword(),
         expectedErrorMessage, assertFailMessage);

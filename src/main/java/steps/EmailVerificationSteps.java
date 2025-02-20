@@ -1,25 +1,28 @@
 package steps;
 
+import model.Letter;
+
 public class EmailVerificationSteps extends BaseSteps {
 
-  public void sendLetterFromMail(String receiver, String subject, String letter) {
+  public void sendLetterFromMail(Letter letter) {
     mailMailboxPage.createLetter()
-        .fillReceiver(receiver)
-        .fillSubject(subject)
+        .fillReceiver(letter.getReceiver())
+        .fillSubject(letter.getSubject())
         .clearMailBody()
-        .fillMailBody(letter)
-        .sendLetter();
+        .fillMailBody(letter.getBody())
+        .sendLetter()
+        .closeEmailIsSentNotification();
   }
 
-  public boolean isEmailArrivedToOutlook(String sender, String subject) {
-    return outlookMailboxPage.isEmailArrived(sender, subject);
+  public boolean isEmailArrivedToOutlook(Letter letter) {
+    return outlookMailboxPage.isEmailArrived(letter);
   }
 
-  public boolean isEmailUnreadInOutlook(String sender, String subject) {
-    return outlookMailboxPage.isEmailUnread(sender, subject);
+  public boolean isEmailUnreadInOutlook(Letter letter) {
+    return outlookMailboxPage.isEmailUnread(letter);
   }
 
-  public String getEmailFromOutlook(String sender, String subject) {
-    return outlookMailboxPage.getEmailContent(sender, subject);
+  public String getEmailFromOutlook(Letter letter) {
+    return outlookMailboxPage.getEmailContent(letter);
   }
 }

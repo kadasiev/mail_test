@@ -1,5 +1,6 @@
 
-mvn clean test -DtestSuite=regression -Dbrowser=chrome
+mvn clean test -DtestSuite=regression -Dbrowser=chrome -Denvironment=qa
+
 
 Practical Task
 

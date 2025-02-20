@@ -6,10 +6,9 @@ import element.Element;
 
 public class OutlookLogInPage {
 
-    Element accountNameField = xpath("//input[@data-report-event='Signin_Email_Phone_Skype']");
-    Element nextButton = xpath("//input[@data-report-event='Signin_Submit']");
+    Element accountNameField = xpath("//input[@aria-describedby='usernameTitle']");
+    Element submitButton = xpath("//button[@type = 'submit']");
     Element passwordField = xpath("//input[@name='passwd']");
-    Element signInButton = xpath("//input[@data-report-event='Signin_Submit']");
     Element doNotStaySignInButton = xpath("//input[@id='idBtn_Back']");
 
     public OutlookLogInPage enterAccountName(String accountName) {
@@ -18,7 +17,7 @@ public class OutlookLogInPage {
     }
 
     public OutlookLogInPage submitAccountName() {
-        nextButton.click();
+        submitButton.click();
         return this;
     }
 
@@ -28,7 +27,7 @@ public class OutlookLogInPage {
     }
 
     public OutlookLogInPage submitPassword() {
-        signInButton.click();
+        submitButton.click();
         return this;
     }
 
