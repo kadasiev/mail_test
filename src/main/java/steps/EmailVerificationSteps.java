@@ -6,10 +6,10 @@ public class EmailVerificationSteps extends BaseSteps {
 
   public void sendLetterFromMail(Letter letter) {
     mailMailboxPage.createLetter()
-        .fillReceiver(letter.getReceiver())
-        .fillSubject(letter.getSubject())
+        .fillReceiver(letter.receiver())
+        .fillSubject(letter.subject())
         .clearMailBody()
-        .fillMailBody(letter.getBody())
+        .fillMailBody(letter.body())
         .sendLetter()
         .closeEmailIsSentNotification();
   }

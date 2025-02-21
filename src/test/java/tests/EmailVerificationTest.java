@@ -12,7 +12,7 @@ public class EmailVerificationTest extends BaseTest {
 
   private static final String SENDER = "David Kadasiev";
 
-  @Test(groups = {"regression", "run"})
+  @Test(groups = {"regression"})
   public void validateEmailIsArrived() {
     Letter letter = newLetter(SENDER, getTestData("outLookAccountName"));
     openPage(getTestData("mailBasePage"));
@@ -59,7 +59,7 @@ public class EmailVerificationTest extends BaseTest {
         .getEmailFromOutlook(letter);
     logoutSteps.outlookLogOut();
 
-    Assert.assertEquals(emailContent, letter.getBody(),
+    Assert.assertEquals(emailContent, letter.body(),
         "Validation of the email content");
   }
 }

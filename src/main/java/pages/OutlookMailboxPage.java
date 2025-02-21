@@ -19,7 +19,7 @@ public class OutlookMailboxPage {
 
     for (WebElement letter : letters.getList()) {
       if (letter.getAttribute("aria-label")
-          .contains(expectedLetter.getSender() + " " + expectedLetter.getSubject())) {
+          .contains(expectedLetter.sender() + " " + expectedLetter.subject())) {
         isArrived = true;
         break;
       }
@@ -33,7 +33,7 @@ public class OutlookMailboxPage {
     for (WebElement letter : letters.getList()) {
       if (letter.getAttribute("aria-label").contains("Unread")
           && letter.getAttribute("aria-label")
-          .contains(expectedLetter.getSender() + " " + expectedLetter.getSubject())) {
+          .contains(expectedLetter.sender() + " " + expectedLetter.subject())) {
         isArrived = true;
         break;
       }
@@ -44,7 +44,7 @@ public class OutlookMailboxPage {
   public String getEmailContent(Letter expectedLetter) {
     for (WebElement letter : letters.getList()) {
       if (letter.getAttribute("aria-label")
-          .contains(expectedLetter.getSender() + " " + expectedLetter.getSubject())) {
+          .contains(expectedLetter.sender() + " " + expectedLetter.subject())) {
         letter.click();
         return letterContent.getText().trim();
       }
