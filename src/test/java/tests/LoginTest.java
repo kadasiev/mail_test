@@ -27,7 +27,7 @@ public class LoginTest extends BaseTest {
             "Sign-in with empty password"}};
   }
 
-  @Test(groups = {"regression", "run"})
+  @Test(groups = {"regression"})
   public void signInWithValidUsernameAndPassword() {
     openPage(getTestData("mailBasePage"));
     loginSteps.mailLogin();

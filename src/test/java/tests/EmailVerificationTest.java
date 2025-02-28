@@ -18,16 +18,17 @@ public class EmailVerificationTest extends BaseTest {
     openPage(getTestData("mailBasePage"));
     loginSteps.mailLogin();
     emailVerificationSteps.sendLetterFromMail(letter);
+    navigationSteps.openFolderInMail("Sent");
+    lettersManagementSteps.deleteLetterFromMail(letter);
     logoutSteps.mailLogOut();
-
-
     openPage(getTestData("outlookBasePage"));
     loginSteps.outlookLogIn();
     boolean isArrived = emailVerificationSteps
         .isEmailArrivedToOutlook(letter);
+    lettersManagementSteps.deleteLetterFromOutlook(letter);
     logoutSteps.outlookLogOut();
 
-    Assert.assertTrue(isArrived, "Validation that email is arrived");
+    Assert.assertTrue(isArrived, "The email didn't arrive!");
   }
 
   @Test(groups = {"regression"})

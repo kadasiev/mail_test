@@ -9,7 +9,6 @@ public class OutlookLogInPage {
     Element accountNameField = xpath("//input[@aria-describedby='usernameTitle']");
     Element submitButton = xpath("//button[@type = 'submit']");
     Element passwordField = xpath("//input[@name='passwd']");
-    Element doNotStaySignInButton = xpath("//input[@id='idBtn_Back']");
 
     public OutlookLogInPage enterAccountName(String accountName) {
         accountNameField.sendKeys(accountName);
@@ -32,6 +31,6 @@ public class OutlookLogInPage {
     }
 
     public void clickDoNotStaySignInButton() {
-        doNotStaySignInButton.click();
+        submitButton.click();
     }
 }

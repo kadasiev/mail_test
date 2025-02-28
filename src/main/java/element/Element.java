@@ -11,12 +11,13 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Element {
 
   private final By by;
-  public static final int TIMEOUT = 20;
+  public static final int TIMEOUT = 60;
 
   private Element(By by) {
     this.by = by;
@@ -88,5 +89,10 @@ public class Element {
     } catch (TimeoutException e) {
       return false;
     }
+  }
+
+  public void hoverOver() {
+    new Actions(getDriver()).moveToElement(waitForVisibility())
+        .build().perform();
   }
 }
