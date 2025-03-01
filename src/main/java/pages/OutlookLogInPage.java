@@ -5,7 +5,6 @@ import static driver.Driver.waitFor;
 import static element.Element.xpath;
 
 import element.Element;
-import org.openqa.selenium.Keys;
 
 public class OutlookLogInPage {
 
@@ -15,7 +14,7 @@ public class OutlookLogInPage {
 
     public OutlookLogInPage enterAccountName(String accountName) {
         accountNameField.sendKeys(accountName);
-        accountNameField.sendKeys(Keys.ENTER);
+        submitButton.click();
         return this;
     }
 

@@ -9,12 +9,12 @@
 <!--      </run>-->
 <!--    </groups>-->
 
-    <packages>
-      <package name="tests" />
-    </packages>
-<!--    <classes>-->
-<!--      <class name="tests.EmailVerificationTest" />-->
-<!--    </classes>-->
+<!--    <packages>-->
+<!--      <package name="tests" />-->
+<!--    </packages>-->
+    <classes>
+      <class name="tests.EmailVerificationTest" />
+    </classes>
   </test>
 
 </suite>
