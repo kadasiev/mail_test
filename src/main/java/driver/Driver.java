@@ -32,4 +32,8 @@ public class Driver {
   public static void openPage(String url) {
     getDriver().navigate().to(url);
   }
+
+  public static void refreshPage() {
+    getDriver().navigate().refresh();
+  }
 }

@@ -23,6 +23,7 @@ public class EmailVerificationSteps extends BaseSteps {
   }
 
   public String getEmailFromOutlook(Letter letter) {
-    return outlookMailboxPage.getEmailContent(letter);
+    return outlookMailboxPage.openEmail(letter)
+        .getEmailContent();
   }
 }

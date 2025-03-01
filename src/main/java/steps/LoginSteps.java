@@ -6,9 +6,7 @@ public class LoginSteps extends BaseSteps{
 
   public void outlookLogIn() {
     outlookLogInPage.enterAccountName(getTestData("outLookAccountName"))
-        .submitAccountName()
         .enterPassword(getTestData("outLookPassword"))
-        .submitPassword()
         .clickDoNotStaySignInButton();
   }
 

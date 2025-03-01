@@ -37,11 +37,14 @@ public class EmailVerificationTest extends BaseTest {
     openPage(getTestData("mailBasePage"));
     loginSteps.mailLogin();
     emailVerificationSteps.sendLetterFromMail(letter);
+    navigationSteps.openFolderInMail("Sent");
+    lettersManagementSteps.deleteLetterFromMail(letter);
     logoutSteps.mailLogOut();
     openPage(getTestData("outlookBasePage"));
     loginSteps.outlookLogIn();
     boolean isUnread = emailVerificationSteps
         .isEmailUnreadInOutlook(letter);
+    lettersManagementSteps.deleteLetterFromOutlook(letter);
     logoutSteps.outlookLogOut();
 
     Assert.assertTrue(isUnread, "Validation that the new email is unread");
@@ -53,11 +56,14 @@ public class EmailVerificationTest extends BaseTest {
     openPage(getTestData("mailBasePage"));
     loginSteps.mailLogin();
     emailVerificationSteps.sendLetterFromMail(letter);
+    navigationSteps.openFolderInMail("Sent");
+    lettersManagementSteps.deleteLetterFromMail(letter);
     logoutSteps.mailLogOut();
     openPage(getTestData("outlookBasePage"));
     loginSteps.outlookLogIn();
     String emailContent = emailVerificationSteps
         .getEmailFromOutlook(letter);
+    lettersManagementSteps.deleteLetterFromOutlook(letter);
     logoutSteps.outlookLogOut();
 
     Assert.assertEquals(emailContent, letter.body(),

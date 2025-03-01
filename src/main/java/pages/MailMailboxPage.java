@@ -15,16 +15,16 @@ public class MailMailboxPage {
     static final String LETTER_BY_SUBJECT_PATTERN = "//*[contains(@class, 'sj__normal') and text() = '%s']//ancestor::*[contains(@class, 'letter-list-item')]";
     static final String LETTERS_TOP_MENU = "//*[@class = 'new-menu']";
 
-    Element menuButton = xpath("//img[@alt='selenium.test124@mail.ru']");
-    Element logOutButton = xpath("//*[contains(@class, 'item__social')][4]");
-    Element newLetterButton = xpath("//span[@class='compose-button__txt']");
-    Element sendToField = xpath("//input[@tabindex='100']");
-    Element subjectField = xpath("//input[@name='Subject']");
-    Element bodyField = xpath("//div[@tabindex='505']");
-    Element sendButton = xpath("//span[@class='vkuiButton__content']");
-    Element emailIsSentNotificationsCloseButton = xpath("//span[contains(@class, 'button2_close')]/span[2]");
-    //Letters top menu buttons
-    Element deleteButton = xpath(LETTERS_TOP_MENU + "//*[text() = 'Удалить']");
+    private Element menuButton = xpath("//img[@alt='selenium.test124@mail.ru']");
+    private Element logOutButton = xpath("//*[contains(@class, 'item__social')][4]");
+    private Element newLetterButton = xpath("//span[@class='compose-button__txt']");
+    private Element sendToField = xpath("//input[@tabindex='100']");
+    private Element subjectField = xpath("//input[@name='Subject']");
+    private Element bodyField = xpath("//div[@tabindex='505']");
+    private Element sendButton = xpath("//span[@class='vkuiButton__content']");
+    private Element emailIsSentNotificationsCloseButton = xpath("//span[contains(@class, 'button2_close')]/span[2]");
+    //Letters' top menu buttons
+    private Element deleteButton = xpath(LETTERS_TOP_MENU + "//*[text() = 'Удалить']");
 
     public String getTitle() {
         waitFor(15);

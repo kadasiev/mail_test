@@ -8,6 +8,7 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElem
 
 import java.time.Duration;
 import java.util.List;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
@@ -17,7 +18,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class Element {
 
   private final By by;
-  public static final int TIMEOUT = 60;
+  private static final int TIMEOUT = 60;
+  private static final int SHORT_TIMEOUT = 10;
 
   private Element(By by) {
     this.by = by;
@@ -38,7 +40,7 @@ public class Element {
   }
 
   public void waitForPresence() {
-    new WebDriverWait(getDriver(), Duration.ofSeconds(TIMEOUT))
+    new WebDriverWait(getDriver(), Duration.ofSeconds(SHORT_TIMEOUT))
         .until(presenceOfElementLocated(by));
   }
 
@@ -56,10 +58,19 @@ public class Element {
     waitForVisibility().click();
   }
 
+  public void clickFor(long seconds) {
+    waitForVisibilityFor(seconds).click();
+  }
+
   public void tryToClickFor(long seconds) {
     try {
       waitForVisibilityFor(seconds).click();
     } catch(TimeoutException ignored) {}
+  }
+
+  public void doubleClick() {
+    new Actions(getDriver()).doubleClick(waitForVisibility())
+        .build().perform();
   }
 
   public void sendKeys(CharSequence... keys) {
@@ -68,6 +79,11 @@ public class Element {
 
   public void clear() {
     waitForVisibility().clear();
+  }
+
+  public void hoverOver() {
+    new Actions(getDriver()).moveToElement(waitForVisibility())
+        .build().perform();
   }
 
   public String getText() {
@@ -91,8 +107,15 @@ public class Element {
     }
   }
 
-  public void hoverOver() {
-    new Actions(getDriver()).moveToElement(waitForVisibility())
-        .build().perform();
+  public boolean isDisplayed() {
+    try {
+      return getDriver().findElement(by).isDisplayed();
+    } catch (NoSuchElementException e) {
+      return false;
+    }
+  }
+
+  public boolean attributeContains(String attribute, String value) {
+    return waitForVisibility().getAttribute(attribute).contains(value);
   }
 }
