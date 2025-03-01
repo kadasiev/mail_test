@@ -18,11 +18,6 @@ public class OutlookLogInPage {
         return this;
     }
 
-    public OutlookLogInPage submitAccountName() {
-        submitButton.click();
-        return this;
-    }
-
     public OutlookLogInPage enterPassword(String password) {
         for (int i = 0; i < 2; i++) {
             passwordField.sendKeys(password);
@@ -33,11 +28,6 @@ public class OutlookLogInPage {
                 break;
             }
         }
-        return this;
-    }
-
-    public OutlookLogInPage submitPassword() {
-        submitButton.click();
         return this;
     }
 
