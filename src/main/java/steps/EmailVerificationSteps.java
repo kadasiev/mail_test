@@ -15,15 +15,18 @@ public class EmailVerificationSteps extends BaseSteps {
   }
 
   public boolean isEmailArrivedToOutlook(Letter letter) {
-    return outlookMailboxPage.isEmailArrived(letter);
+    return outlookMailboxPage.waitUntilEmailArrives(letter)
+        .isEmailArrived(letter);
   }
 
   public boolean isEmailUnreadInOutlook(Letter letter) {
-    return outlookMailboxPage.isEmailUnread(letter);
+    return outlookMailboxPage.waitUntilEmailArrives(letter)
+        .isEmailUnread(letter);
   }
 
   public String getEmailFromOutlook(Letter letter) {
-    return outlookMailboxPage.openEmail(letter)
+    return outlookMailboxPage.waitUntilEmailArrives(letter)
+        .openEmail(letter)
         .getEmailContent();
   }
 }

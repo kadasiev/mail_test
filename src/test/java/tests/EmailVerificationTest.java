@@ -28,7 +28,7 @@ public class EmailVerificationTest extends BaseTest {
     lettersManagementSteps.deleteLetterFromOutlook(letter);
     logoutSteps.outlookLogOut();
 
-    Assert.assertTrue(isArrived, "The email didn't arrive!");
+    Assert.assertTrue(isArrived, "The email hasn't arrive!");
   }
 
   @Test(groups = {"regression"})
@@ -47,7 +47,7 @@ public class EmailVerificationTest extends BaseTest {
     lettersManagementSteps.deleteLetterFromOutlook(letter);
     logoutSteps.outlookLogOut();
 
-    Assert.assertTrue(isUnread, "Validation that the new email is unread");
+    Assert.assertTrue(isUnread, "The new email is marked as read!");
   }
 
   @Test(groups = {"regression"})
@@ -67,6 +67,6 @@ public class EmailVerificationTest extends BaseTest {
     logoutSteps.outlookLogOut();
 
     Assert.assertEquals(emailContent, letter.body(),
-        "Validation of the email content");
+        "The email content is not valid!");
   }
 }
