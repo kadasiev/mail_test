@@ -2,15 +2,15 @@ package steps;
 
 import static driver.Driver.refreshPage;
 import static driver.Driver.waitFor;
-import static util.TestDataReader.getTestData;
+import static util.TestDataReader.getValue;
 
 public class LoginSteps extends BaseSteps{
 
   public void outlookLogIn() {
-    outlookLogInPage.enterAccountName(getTestData("outLookAccountName"));
+    outlookLogInPage.enterAccountName(getValue("outLookAccountName"));
 
     for (int i = 0; i < 2; i++) {
-      outlookLogInPage.enterPassword(getTestData("outLookPassword"));
+      outlookLogInPage.enterPassword(getValue("outLookPassword"));
       //Wait until password filed disappears
       waitFor(2);
       if (!outlookLogInPage.isPasswordFieldDisplayed()) {
@@ -29,18 +29,14 @@ public class LoginSteps extends BaseSteps{
 
   public void mailLogin() {
     mailSignInPage.openSignInWindow()
-        .enterAccountName(getTestData("mailAccountName"))
+        .enterAccountName(getValue("mailAccountName"))
         .chooseAnotherWayToLogIn()
-        .enterPassword(getTestData("mailPassword"));
+        .enterPassword(getValue("mailPassword"));
   }
 
   public void mailEnterAccountName(String mail) {
     mailSignInPage.openSignInWindow()
         .enterAccountName(mail);
-  }
-
-  public String getTitle() {
-    return mailMailboxPage.getTitle();
   }
 
   public String getErrorMessageFromWrongUsername() {

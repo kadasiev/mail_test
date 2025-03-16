@@ -1,8 +1,10 @@
 package tests;
 
 import static driver.Driver.openPage;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 import static util.LetterCreator.newLetter;
-import static util.TestDataReader.getTestData;
+import static util.TestDataReader.getValue;
 
 import model.Letter;
 import org.testng.Assert;
@@ -14,59 +16,59 @@ public class EmailVerificationTest extends BaseTest {
 
   @Test(groups = {"regression"})
   public void validateEmailIsArrived() {
-    Letter letter = newLetter(SENDER, getTestData("outLookAccountName"));
-    openPage(getTestData("mailBasePage"));
+    Letter letter = newLetter(SENDER, getValue("outLookAccountName"));
+    openPage(getValue("mailBasePage"));
     loginSteps.mailLogin();
     emailVerificationSteps.sendLetterFromMail(letter);
     navigationSteps.openFolderInMail("Sent");
     lettersManagementSteps.deleteLetterFromMail(letter);
     logoutSteps.mailLogOut();
-    openPage(getTestData("outlookBasePage"));
+    openPage(getValue("outlookBasePage"));
     loginSteps.outlookLogIn();
     boolean isArrived = emailVerificationSteps
         .isEmailArrivedToOutlook(letter);
     lettersManagementSteps.deleteLetterFromOutlook(letter);
     logoutSteps.outlookLogOut();
 
-    Assert.assertTrue(isArrived, "The email hasn't arrive!");
+    assertTrue(isArrived, "The email hasn't arrive!");
   }
 
   @Test(groups = {"regression"})
   public void validateEmailUnread() {
-    Letter letter = newLetter(SENDER, getTestData("outLookAccountName"));
-    openPage(getTestData("mailBasePage"));
+    Letter letter = newLetter(SENDER, getValue("outLookAccountName"));
+    openPage(getValue("mailBasePage"));
     loginSteps.mailLogin();
     emailVerificationSteps.sendLetterFromMail(letter);
     navigationSteps.openFolderInMail("Sent");
     lettersManagementSteps.deleteLetterFromMail(letter);
     logoutSteps.mailLogOut();
-    openPage(getTestData("outlookBasePage"));
+    openPage(getValue("outlookBasePage"));
     loginSteps.outlookLogIn();
     boolean isUnread = emailVerificationSteps
         .isEmailUnreadInOutlook(letter);
     lettersManagementSteps.deleteLetterFromOutlook(letter);
     logoutSteps.outlookLogOut();
 
-    Assert.assertTrue(isUnread, "The new email is marked as read!");
+    assertTrue(isUnread, "The new email is marked as read!");
   }
 
   @Test(groups = {"regression"})
   public void validateEmailContent() {
-    Letter letter = newLetter(SENDER, getTestData("outLookAccountName"));
-    openPage(getTestData("mailBasePage"));
+    Letter letter = newLetter(SENDER, getValue("outLookAccountName"));
+    openPage(getValue("mailBasePage"));
     loginSteps.mailLogin();
     emailVerificationSteps.sendLetterFromMail(letter);
     navigationSteps.openFolderInMail("Sent");
     lettersManagementSteps.deleteLetterFromMail(letter);
     logoutSteps.mailLogOut();
-    openPage(getTestData("outlookBasePage"));
+    openPage(getValue("outlookBasePage"));
     loginSteps.outlookLogIn();
     String emailContent = emailVerificationSteps
         .getEmailFromOutlook(letter);
     lettersManagementSteps.deleteLetterFromOutlook(letter);
     logoutSteps.outlookLogOut();
 
-    Assert.assertEquals(emailContent, letter.body(),
+    assertEquals(emailContent, letter.body(),
         "The email content is not valid!");
   }
 }

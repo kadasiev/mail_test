@@ -1,9 +1,7 @@
 package pages;
 
-import static driver.Driver.waitFor;
 import static element.Element.xpath;
 
-import driver.Driver;
 import element.Element;
 import model.Letter;
 
@@ -25,11 +23,6 @@ public class MailMailboxPage {
     private Element emailIsSentNotificationsCloseButton = xpath("//span[contains(@class, 'button2_close')]/span[2]");
     //Letters' top menu buttons
     private Element deleteButton = xpath(LETTERS_TOP_MENU + "//*[text() = 'Удалить']");
-
-    public String getTitle() {
-        waitFor(15);
-        return Driver.getTitle();
-    }
 
     public MailMailboxPage openMenu() {
         menuButton.click();

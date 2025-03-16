@@ -1,5 +1,8 @@
 package steps;
 
+import static driver.Driver.waitFor;
+
+import driver.Driver;
 import model.Letter;
 
 public class EmailVerificationSteps extends BaseSteps {
@@ -28,5 +31,10 @@ public class EmailVerificationSteps extends BaseSteps {
     return outlookMailboxPage.waitUntilEmailArrives(letter)
         .openEmail(letter)
         .getEmailContent();
+  }
+
+  public String getTitle() {
+    waitFor(15);
+    return Driver.getTitle();
   }
 }
