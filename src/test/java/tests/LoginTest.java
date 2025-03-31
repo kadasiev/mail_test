@@ -4,6 +4,7 @@ import static driver.Driver.openPage;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 import static util.TestDataReader.getValue;
+import static util.UserCreator.getMailUser;
 
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -30,7 +31,7 @@ public class LoginTest extends BaseTest {
   @Test(groups = {"regression"})
   public void signInWithValidUsernameAndPassword() {
     openPage(getValue("mailBasePage"));
-    loginSteps.mailLogin();
+    loginSteps.mailLogin(getMailUser());
     String mailboxTitle = emailVerificationSteps.getTitle();
     logoutSteps.mailLogOut();
 
@@ -41,6 +42,7 @@ public class LoginTest extends BaseTest {
   @Test(dataProvider = "dataForUsernameField", groups = {"regression"})
   public void signInWithWrongUsername(String username, String expectedErrorMessage,
       String assertFailMessage) {
+
     openPage(getValue("mailBasePage"));
     loginSteps.mailEnterAccountName(username);
 
@@ -51,8 +53,9 @@ public class LoginTest extends BaseTest {
   @Test(dataProvider = "dataForPasswordField", groups = {"regression"})
   public void signInWithWrongPassword(String username, String password,
       String expectedErrorMessage, String assertFailMessage) {
+
     openPage(getValue("mailBasePage"));
-    loginSteps.mailLogin();
+    loginSteps.mailLogin(getMailUser());
 
     assertEquals(loginSteps.getErrorMessageFromWrongPassword(),
         expectedErrorMessage, assertFailMessage);

@@ -5,9 +5,10 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 import static util.LetterCreator.newLetter;
 import static util.TestDataReader.getValue;
+import static util.UserCreator.getMailUser;
+import static util.UserCreator.getOutlookUser;
 
 import model.Letter;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class EmailVerificationTest extends BaseTest {
@@ -18,13 +19,13 @@ public class EmailVerificationTest extends BaseTest {
   public void validateEmailIsArrived() {
     Letter letter = newLetter(SENDER, getValue("outLookAccountName"));
     openPage(getValue("mailBasePage"));
-    loginSteps.mailLogin();
+    loginSteps.mailLogin(getMailUser());
     emailVerificationSteps.sendLetterFromMail(letter);
     navigationSteps.openFolderInMail("Sent");
     lettersManagementSteps.deleteLetterFromMail(letter);
     logoutSteps.mailLogOut();
     openPage(getValue("outlookBasePage"));
-    loginSteps.outlookLogIn();
+    loginSteps.outlookLogIn(getOutlookUser());
     boolean isArrived = emailVerificationSteps
         .isEmailArrivedToOutlook(letter);
     lettersManagementSteps.deleteLetterFromOutlook(letter);
@@ -37,13 +38,13 @@ public class EmailVerificationTest extends BaseTest {
   public void validateEmailUnread() {
     Letter letter = newLetter(SENDER, getValue("outLookAccountName"));
     openPage(getValue("mailBasePage"));
-    loginSteps.mailLogin();
+    loginSteps.mailLogin(getMailUser());
     emailVerificationSteps.sendLetterFromMail(letter);
     navigationSteps.openFolderInMail("Sent");
     lettersManagementSteps.deleteLetterFromMail(letter);
     logoutSteps.mailLogOut();
     openPage(getValue("outlookBasePage"));
-    loginSteps.outlookLogIn();
+    loginSteps.outlookLogIn(getOutlookUser());
     boolean isUnread = emailVerificationSteps
         .isEmailUnreadInOutlook(letter);
     lettersManagementSteps.deleteLetterFromOutlook(letter);
@@ -56,13 +57,13 @@ public class EmailVerificationTest extends BaseTest {
   public void validateEmailContent() {
     Letter letter = newLetter(SENDER, getValue("outLookAccountName"));
     openPage(getValue("mailBasePage"));
-    loginSteps.mailLogin();
+    loginSteps.mailLogin(getMailUser());
     emailVerificationSteps.sendLetterFromMail(letter);
     navigationSteps.openFolderInMail("Sent");
     lettersManagementSteps.deleteLetterFromMail(letter);
     logoutSteps.mailLogOut();
     openPage(getValue("outlookBasePage"));
-    loginSteps.outlookLogIn();
+    loginSteps.outlookLogIn(getOutlookUser());
     String emailContent = emailVerificationSteps
         .getEmailFromOutlook(letter);
     lettersManagementSteps.deleteLetterFromOutlook(letter);

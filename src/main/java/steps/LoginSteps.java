@@ -2,15 +2,16 @@ package steps;
 
 import static driver.Driver.refreshPage;
 import static driver.Driver.waitFor;
-import static util.TestDataReader.getValue;
 
-public class LoginSteps extends BaseSteps{
+import model.User;
 
-  public void outlookLogIn() {
-    outlookLogInPage.enterAccountName(getValue("outLookAccountName"));
+public class LoginSteps extends BaseSteps {
+
+  public void outlookLogIn(User user) {
+    outlookLogInPage.enterAccountName(user.accountName());
 
     for (int i = 0; i < 2; i++) {
-      outlookLogInPage.enterPassword(getValue("outLookPassword"));
+      outlookLogInPage.enterPassword(user.password());
       //Wait until password filed disappears
       waitFor(2);
       if (!outlookLogInPage.isPasswordFieldDisplayed()) {
@@ -27,11 +28,11 @@ public class LoginSteps extends BaseSteps{
     }
   }
 
-  public void mailLogin() {
+  public void mailLogin(User user) {
     mailSignInPage.openSignInWindow()
-        .enterAccountName(getValue("mailAccountName"))
+        .enterAccountName(user.accountName())
         .chooseAnotherWayToLogIn()
-        .enterPassword(getValue("mailPassword"));
+        .enterPassword(user.password());
   }
 
   public void mailEnterAccountName(String mail) {
